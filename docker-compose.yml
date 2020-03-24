@@ -1,0 +1,101 @@
+version: '2'
+services:
+    db:
+        image: mysql:5.7.23
+        command: --sql_mode="" --max_allowed_packet=1073741824
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: triel
+            MYSQL_USER: symfony
+            MYSQL_PASSWORD: symfony
+        networks:
+            - triel-network
+
+    php:
+        build: ./.cloud/php-fpm
+        ports:
+            - "8081:8081"
+            - "9501:9501"
+        volumes:
+            - .:/app
+        links:
+            - db
+            - elasticsearch
+            - redis
+        networks:
+            - triel-network
+
+    nginx:
+        build: ./.cloud/nginx
+        ports:
+            - "443:443"
+            - "80:80"
+            - "8080:8080"
+        links:
+            - php
+        depends_on:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - /var/log/nginx/:/var/log/nginx:cached
+            - .cloud/nginx/rootfs/etc/nginx/certs:/etc/nginx/certs
+        networks:
+            - triel-network
+
+    pma:
+        image: phpmyadmin/phpmyadmin
+        environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - PMA_HOST=db
+          - PMA_USER=root
+          - PMA_PASSWORD=root
+        ports:
+            - "81:80"
+        links:
+            - "db:db"
+        depends_on:
+          - db
+        networks:
+            - triel-network
+
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+        container_name: elasticsearch
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - esdata1:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+        networks:
+            - triel-network
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:6.4.3
+        depends_on:
+            - elasticsearch
+        ports:
+            - 5601:5601
+        networks:
+            - triel-network
+
+    redis:
+        image: redis
+        networks:
+            - triel-network
+volumes:
+    esdata1:
+        driver: local
+
+networks:
+    triel-network:
+        driver: bridge

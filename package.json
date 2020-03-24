@@ -1,0 +1,42 @@
+{
+  "name": "triel-solidaire",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Dependencies of triel-solidaire",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cbastienbaron/triel-solidaire"
+  },
+  "homepage": "https://github.com/cbastienbaron/triel-solidaire",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.2",
+    "del": "^2.2",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9",
+    "gulp-clean-css": "~2.0.0",
+    "gulp-filter": "^4.0",
+    "gulp-uglify": "^1.5",
+    "gulp-util": "^3.0",
+    "image-webpack-loader": "^4.2.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "url-loader": "^1.0.1",
+    "webpack-dashboard": "^1.1.1",
+    "webpack-notifier": "^1.6.0"
+  },
+  "dependencies": {
+    "animate.css": "^3.7.2",
+    "bootstrap": "^4.4.1",
+    "font-awesome": "^4.7.0",
+    "hamburgers": "^1.1.3",
+    "hover.css": "^2.3.2",
+    "jquery": "^3.4.1",
+    "js-cookie": "^2.2.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "yarn": "^1.21.1"
+  },
+  "scripts": {
+    "watch": "./node_modules/.bin/yarn encore dev --watch",
+    "production": "./node_modules/.bin/yarn encore production"
+  }
+}
