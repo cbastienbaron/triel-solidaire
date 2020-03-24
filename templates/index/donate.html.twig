@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    
+    Je fais un don pour :
+
+    <ul class="donate-dispatch-list">
+        <li>
+            <a href="{{ path('app.donate.care') }}" class="btn btn-primary" role="button">soignants</a>
+        </li>
+
+        <li>
+            <a href="{{ path('app.donate.vulnerable') }}" class="btn btn-primary" role="button">personnes démunies</a>
+        </li>
+    </ul>
+
+{% endblock %}

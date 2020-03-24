@@ -16,4 +16,26 @@ class IndexController extends AbstractController
             'controller_name' => 'IndexController',
         ]);
     }
+
+
+    /**
+     * @Route("/remerciements", name="app.thanks")
+     */
+    public function thanks()
+    {
+        return $this->render('index/thanks.html.twig', [
+            'controller_name' => 'IndexController',
+        ]);
+    }
+
+    
+    /**
+     * @Route("/je-fais-un-don", name="app.donate")
+     */
+    public function donate()
+    {
+        return $this->render('index/donate.html.twig', [
+            'controller_name' => 'IndexController',
+        ]);
+    }
 }

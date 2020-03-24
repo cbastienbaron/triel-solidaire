@@ -27,6 +27,7 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",
+    "bxslider": "^4.2.14",
     "font-awesome": "^4.7.0",
     "hamburgers": "^1.1.3",
     "hover.css": "^2.3.2",
