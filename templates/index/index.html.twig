@@ -6,34 +6,34 @@
 
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
+<div class="solidarity-wrapper">
 
   <p style="text-align:center">Merci merci !</p>  
 
   <div class="slider">
-    <div><img src="https://www.triel-sur-seine.fr/uploads/Parametre/0d/SIT_TRIEL_727_image.jpg" title="Merci a Mr tartanpion"></div>
-    <div>I am another slide.</div>
+
+    {% for thank in thanks %}
+      <div>
+          <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('slider') }}" title="{{ thank.title }}">
+      </div>
+    {% endfor %}
   </div>
 
-  <p>
+  <p class="solidarity-hightlight">
     La crise sanitaire oblige les habitants à rester chez eux, afin de limiter la propagation du virus. 
     Certaines personnes sont en première ligne (notamment le personnel hospitalier) et d'autres sont à protéger en priorité. 
     Plusieurs questions se posent alors:
-
-    <ul>
-      <li><a href="">Comment soutenir les soignants ? </a></li>
-      <li><a href="">Comment aider sans aggraver la situation ?</a></li> 
-      <li><a href="">Comment se faire aider si je dois rester confiner ?</a></li> 
-      <li><a href="">Comment occuper les enfants ? </a></li>
-      <li><a href="">Que se passe t il dans ma ville ?</a></li>
-    </ul>
-
   </p>
+
+  <ul>
+    <li><a href="">Comment soutenir les soignants ? </a></li>
+    <li><a href="">Comment aider sans aggraver la situation ?</a></li> 
+    <li><a href="">Comment se faire aider si je dois rester confiner ?</a></li> 
+    <li><a href="">Comment occuper les enfants ? </a></li>
+    <li><a href="">Que se passe t il dans ma ville ?</a></li>
+  </ul>
+
 
 </div>
 {% endblock %}

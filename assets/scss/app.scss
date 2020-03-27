@@ -1,11 +1,43 @@
+h1 {
+    text-align: center;
+}
+
 .header-share svg {
     height: 18px;
 }
 
-.donate-dispatch-list {
-    list-style-type: none;
 
+.solidarity-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+
+.solidarity-hightlight {
+    background: blue;
+    color: #FFF;
+}
+
+.solidarity-activities-list, 
+.solidarity-referents-list {
+    list-style-type: none;
+    text-align: left;
     li {
         margin-bottom: 20px;
+    }
+}
+
+.solidarity-referents-list {
+    li img { 
+        float: left; 
+        padding: 0 20px 20px 0;
+    }
+}
+.donate-dispatch-list {
+    list-style-type: none;
+    text-align: center;
+    li {
+        margin-bottom: 20px;
+
+        a.btn {
+            width: 300px;
+            height: 40px;
+        }
     }
 }

@@ -1,0 +1,183 @@
+easy_admin:
+        site_name: '<img src="https://www.triel-sur-seine.fr/images/GBI_TRIEL/logo.png" /> triel solidarité'
+        list:
+            actions: ['edit', 'search', 'show', 'delete']
+        edit:
+            actions: ['show', 'delete']
+    
+    
+        entities:
+            # List the entity class name you want to manage
+            Tags:
+                class: App\Entity\Tag
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                form:
+                    fields:
+                        - 'name'
+            Thanks:
+                class: App\Entity\Thanks
+                show:
+                    fields:
+                        - 'id'
+                        - 'title'
+                        - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
+    
+                list:
+                    fields:
+                        - 'id'
+                        - 'title'
+                        - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
+    
+                form:
+                    fields:
+                        - 'title'
+                        - { property: 'mainFile', type: 'vich_image'}
+    
+            Recipient:
+                class: App\Entity\Recipient
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+    
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+    
+                form:
+                    fields:
+                        - 'name'
+            Referent:
+                class: App\Entity\Referent
+                show:
+                    fields:
+                        - 'firstname'
+                        - 'lastname'
+                        - 'email'
+                        - 'quartier'
+                        - 'phone'
+                        - 'infos'
+                        - 'address'
+                        - 'donations'
+                        - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
+    
+                list:
+                    fields:
+                        - 'firstname'
+                        - 'lastname'
+                        - 'quartier'
+                        - 'email'
+                        - 'phone'
+                        - 'donations'
+                        - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
+    
+                form:
+                    fields:
+                        - 'firstname'
+                        - 'lastname'
+                        - 'email'
+                        - 'quartier'
+                        - 'phone'
+                        - 'infos'
+                        - 'address'
+                        - 'donations'
+                        - { property: 'mainFile', type: 'vich_image'}
+                        
+            TypeOfDonation:
+                class: App\Entity\TypeOfDonation
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'recipient'
+    
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'recipient'
+    
+                form:
+                    fields:
+                        - 'name'
+                        - { property: 'recipient',  type_options: { class: 'App\Entity\Recipient' } }
+            
+            Donation:
+                class: App\Entity\Donation
+                show:
+                    fields:
+                        - 'id'
+                        - 'person'
+                        - 'phone'
+                        - 'recipient'
+                        - 'typeOfDonations'
+                        - 'donateAt'
+                        - 'assignedTo'
+                        - 'isCollected'
+                list:
+                    fields:
+                        - 'id'
+                        - 'person'
+                        - 'phone'
+                        - 'recipient'
+                        - 'isCollected'
+                        - 'assignedTo'
+                form:
+                    fields:
+                        - 'person'
+                        - 'phone'
+                        - 'email'
+                        - 'recipient'
+                        - 'donateAt'
+                        - 'isCollected'
+                        - { property: 'assignedTo', type_options: { class: 'App\Entity\Referent' } }
+
+            UnassignedDonations:
+                class: App\Entity\Donation
+                list:
+                    dql_filter: "entity.assignedTo IS NULL"
+        design:
+            assets:
+                favicon: '/assets/backend/favicon.png'
+                css:
+                    - '/assets/css/admin.css'
+                    - 'bundles/easyadmin/bootstrap-all.css'
+                js:
+                    - 'bundles/easyadmin/bootstrap-all.js'
+            menu:
+                - { label: 'Donations' }
+                - { entity: 'Donation', label: 'Dons', icon: 'industry' }
+                - { entity: 'UnassignedDonations', label: 'Dons Non assignés', icon: 'industry' }
+
+                - { label: 'Referent' }
+                - { entity: 'Referent', label: 'Gestion des référents', icon: 'industry' }
+                
+                - { label: 'Remerciements' }
+                - { entity: 'Thanks', label: 'Gestion Remerciements', icon: 'money' }
+                
+                - { label: 'Activites' }
+                - { entity: 'Tags', label: 'Gestion des tags', icon: 'tag' }
+                
+
+                - { label: 'Gestion sytèmes donations' }
+                - { entity: 'Recipient', label: 'Gestion Type Beneficiaires', icon: 'industry' }
+                - { entity: 'TypeOfDonation', label: 'Gestion Type de dons', icon: 'industry' }
+
+                # - { entity: 'Outgoing', label: 'Stats output', icon: 'bar-chart' }
+                # - { entity: 'Link', label: 'Affiliate Links', icon: 'bar-chart' }
+                # - { label: 'Referents' }
+                # - { entity: 'Report', label: 'Reports', icon: 'warning' }
+    
+    
+            form_theme:
+                - '@EasyAdmin/form/bootstrap_4.html.twig'
+                - '@VichUploader/Form/fields.html.twig'
+    

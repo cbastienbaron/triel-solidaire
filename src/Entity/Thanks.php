@@ -40,11 +40,6 @@ class Thanks
     private $mimeType;
 
     /**
-     * ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="snaps")
-     */
-    private $user;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
@@ -55,7 +50,7 @@ class Thanks
     private $file;
 
     /**
-     * @Vich\UploadableField(mapping="snaps", fileNameProperty="file")
+     * @Vich\UploadableField(mapping="thanks", fileNameProperty="file")
      *
      * @var File
      */
@@ -105,7 +100,6 @@ class Thanks
 
         return $this;
     }
-
 
     public function setMainFile(File $file = null): self
     {

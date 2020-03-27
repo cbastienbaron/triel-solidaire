@@ -4,16 +4,15 @@
 {% block body %}
 
     
-    Je fais un don pour :
+    <h1>Je fais un don pour</h1>
 
     <ul class="donate-dispatch-list">
-        <li>
-            <a href="{{ path('app.donate.care') }}" class="btn btn-primary" role="button">soignants</a>
-        </li>
 
-        <li>
-            <a href="{{ path('app.donate.vulnerable') }}" class="btn btn-primary" role="button">personnes démunies</a>
-        </li>
+        {% for recipient in recipients %}
+            <li>
+                <a href="{{ path('app.donate.dispatch', {'slug' : recipient.slug }) }}" class="btn btn-primary" role="button">{{ recipient.name }}</a>
+            </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

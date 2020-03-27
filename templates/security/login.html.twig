@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+  <div class="row">
+
+    <div class="col m6">
+
+      {{ form_start(registrationForm) }}
+
+        <div class="row">
+            <h5 class="ml-4">Je veux m'incrire comme référant</h5>
+        </div>
+      
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.username) }}
+
+        <div class="row">
+          <div class="input-field col s12">
+            <p class="margin medium-small"><a href="user-login.html">{{ 'form.registration.login.label'|trans }}</a></p>
+          </div>
+        </div>
+
+      {{ form_end(registrationForm) }}
+
+    </div>
+    <div class="col m6">
+      <form method="post" class="snap-login-form">
+          <div class="row">
+            <div class="input-field col s12">
+              <h5 class="ml-4">Login to your account</h5>
+            </div>
+          </div>
+
+          {% if error %}
+              <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+          {% endif %}
+
+          {% if app.user %}
+              <div class="mb-3">
+                  Vous êtes identifié comme {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a>
+              </div>
+          {% endif %}
+
+          <label for="email">Username</label>
+          <input type="text" value="" name="email" id="email" class="form-control" required autofocus>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" class="form-control" required>
+
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+          <button class="snap-login-btn hvr-grow-shadow" type="submit">
+              Sign in
+          </button>
+
+          <hr/>
+          <a href="#" class="hvr-underline-from-left">Forgotten password</a>
+            
+      </form>
+    </div>
+  </div>      
+{% endblock %}

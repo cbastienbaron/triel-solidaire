@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Hello IndexController!{% endblock %} #}
+
+{% block body %}
+
+<div class="solidarity-wrapper">
+
+  <p style="text-align:center">Merci merci !</p>  
+
+  <ul class="list-group list-group-flush solidarity-referents-list">
+    {% for referent in referents %}
+        <li class="list-group-item">
+
+            {% if referent.file %}
+              <img src="{{ vich_uploader_asset(referent, 'mainFile') | imagine_filter('referent') }}" title="{{ referent.firstname ~ referent.lastname }}">
+            {% else %}            
+              <img src="https://www.triel-sur-seine.fr/images/GBI_TRIEL/logo.png" title="{{ referent.firstname ~ referent.lastname }}">
+            {% endif %}
+
+
+            {{ referent.firstname }} {{ referent.lastname }}
+
+            {% if referent.phone %}
+              <br>Télephone : {{ referent.phone }} 
+            {% endif %}
+
+            {% if referent.email %}
+              <br>Email : <a href="mailto:{{ referent.email }}">{{ referent.email }}</a>
+            {% endif %}
+
+            {% if referent.quartier %}
+              <br>Quartier : {{ referent.quartier }}
+            {% endif %}
+        </li>
+    {% endfor %}    
+  </ul>
+
+  <div class="navigation">
+      {{ knp_pagination_render(referents) }}
+  </div>
+
+</div>
+{% endblock %}

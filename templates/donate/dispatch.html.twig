@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  
+  {{ form_start(donationForm) }}
+
+      {{ form_row(donationForm.person) }}
+
+      {{ form_row(donationForm.quartier) }}
+      
+      {{ form_row(donationForm.phone) }}
+
+      {{ form_row(donationForm.email) }}
+
+      {{ form_row(donationForm.adress) }}
+      
+      {{ form_row(donationForm.additionalInfo) }}
+
+      {{ form_row(donationForm.donateAt) }}
+
+      {{ form_row(donationForm.typeOfDonations, {label_attr: {class: 'switch-custom'} }) }}
+
+      <button type="submit" class="btn btn-primary">je fais un don !</button>
+  {{ form_end(donationForm) }}
+{% endblock %}

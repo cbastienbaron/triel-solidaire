@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Hello IndexController!{% endblock %} #}
+
+{% block body %}
+
+<div class="solidarity-wrapper">
+
+  <p style="text-align:center">Merci merci !</p>  
+
+  <ul class="list-group list-group-flush solidarity-activities-list">
+    {% for activity in activities %}
+        <li class="list-group-item">
+            {{ activity.name }} 
+            <br>
+            <a href="{{ activity.url }}" target="_blank">{{ activity.url }}</a>
+            <br>
+            {{ activity.description }} 
+            <br>
+            {% for tag in activity.tags %}
+              <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-info" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
+            {% endfor %}
+        </li>
+    {% endfor %}
+      
+  </ul>
+  <div class="navigation">
+      {{ knp_pagination_render(activities) }}
+  </div>
+
+</div>
+{% endblock %}

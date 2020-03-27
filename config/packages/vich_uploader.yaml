@@ -1,7 +1,7 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        avatars:
+        thanks:
             uri_prefix:         '/images/thanks'
             upload_destination: '%kernel.project_dir%/public/images/thanks'
             delete_on_remove: true
@@ -9,4 +9,14 @@ vich_uploader:
             namer: Vich\UploaderBundle\Naming\UniqidNamer
             directory_namer:
                 service: vich_uploader.namer_directory_current_date_time
-                options: {date_time_property: uploadTimestamp, date_time_format: 'Y/d/m/H'}
+                options: {date_time_property: createdAt, date_time_format: 'Y/d/m/H'}
+        referents:
+            uri_prefix:         '/images/referents'
+            upload_destination: '%kernel.project_dir%/public/images/referents'
+            delete_on_remove: true
+            delete_on_update: true
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            directory_namer:
+                service: vich_uploader.namer_directory_current_date_time
+                options: {date_time_property: createdAt, date_time_format: 'Y/d/m/H'}
+        
