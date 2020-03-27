@@ -85,6 +85,11 @@ class Referent implements UserInterface
     private $mainFile;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValidated = false;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="assignedTo")
      */
     private $donations;
@@ -305,5 +310,25 @@ class Referent implements UserInterface
     public function __toString(): string
     {
         return $this->firstname.' '.$this->lastname;
+    }
+
+    /**
+     * Get the value of isValidated
+     */ 
+    public function isValidated()
+    {
+        return $this->isValidated;
+    }
+
+    /**
+     * Set the value of isValidated
+     *
+     * @return  self
+     */ 
+    public function setIsValidated($isValidated)
+    {
+        $this->isValidated = $isValidated;
+
+        return $this;
     }
 }

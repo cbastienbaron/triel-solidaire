@@ -84,6 +84,7 @@ class DonationType extends AbstractType
                 [
                     'label'   => 'Date souhaitée pour le ramassage de votre don',
                     'required' => false,
+                    'widget' => 'single_text'
                 ]
             )
 

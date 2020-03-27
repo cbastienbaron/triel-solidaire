@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
 {% block body %}
 
   <div class="row">
@@ -15,27 +13,33 @@
         </div>
       
         {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.username) }}
+        
+        {{ form_row(registrationForm.lastname) }}
+        
+        {{ form_row(registrationForm.email) }}
+        
+        {{ form_row(registrationForm.phone) }}
+        
+        {{ form_row(registrationForm.plainPassword) }}
+        
+        {{ form_row(registrationForm.quartier) }}
+        
+        {{ form_row(registrationForm.address) }}
+        
+        {{ form_row(registrationForm.infos) }}
 
         <div class="row">
-          <div class="input-field col s12">
-            <p class="margin medium-small"><a href="user-login.html">{{ 'form.registration.login.label'|trans }}</a></p>
-          </div>
+          <button type="submit" class="btn btn-primary">Je m'inscris comme référent</button>
         </div>
 
       {{ form_end(registrationForm) }}
 
     </div>
     <div class="col m6">
-      <form method="post" class="snap-login-form">
+      <form method="post">
           <div class="row">
             <div class="input-field col s12">
-              <h5 class="ml-4">Login to your account</h5>
+              <h5 class="ml-4">Je me connecte</h5>
             </div>
           </div>
 
@@ -49,21 +53,20 @@
               </div>
           {% endif %}
 
-          <label for="email">Username</label>
+          <label for="email">Email</label>
           <input type="text" value="" name="email" id="email" class="form-control" required autofocus>
 
-          <label for="password">Password</label>
+          <label for="password">Mot de passe</label>
           <input type="password" name="password" id="password" class="form-control" required>
 
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-          <button class="snap-login-btn hvr-grow-shadow" type="submit">
-              Sign in
-          </button>
-
-          <hr/>
-          <a href="#" class="hvr-underline-from-left">Forgotten password</a>
-            
+          <div class="form-group row" style="text-align:center;">
+            <button type="submit" class="btn btn-primary">
+                Je me connecte
+            </button>
+          </div>
+          
       </form>
     </div>
   </div>      
