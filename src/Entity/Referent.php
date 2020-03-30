@@ -90,11 +90,6 @@ class Referent implements UserInterface
     private $isValidated = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="assignedTo")
-     */
-    private $donations;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\District", inversedBy="referents")
      */
     private $district;
@@ -106,7 +101,6 @@ class Referent implements UserInterface
 
     public function __construct()
     {
-        $this->donations = new ArrayCollection();
         $this->collects = new ArrayCollection();
     }
 
@@ -232,37 +226,6 @@ class Referent implements UserInterface
     public function setFile(?string $file): self
     {
         $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Donation[]
-     */
-    public function getDonations(): Collection
-    {
-        return $this->donations;
-    }
-
-    public function addDonation(Donation $donation): self
-    {
-        if (!$this->donations->contains($donation)) {
-            $this->donations[] = $donation;
-            $donation->setAssignedTo($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDonation(Donation $donation): self
-    {
-        if ($this->donations->contains($donation)) {
-            $this->donations->removeElement($donation);
-            // set the owning side to null (unless already changed)
-            if ($donation->getAssignedTo() === $this) {
-                $donation->setAssignedTo(null);
-            }
-        }
 
         return $this;
     }

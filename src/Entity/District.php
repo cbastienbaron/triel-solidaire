@@ -36,11 +36,6 @@ class District
     private $referents;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="district")
-     */
-    private $donations;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Collect", mappedBy="district")
      */
     private $collects;
@@ -48,7 +43,6 @@ class District
     public function __construct()
     {
         $this->referents = new ArrayCollection();
-        $this->donations = new ArrayCollection();
         $this->collects = new ArrayCollection();
     }
 
@@ -99,37 +93,6 @@ class District
             // set the owning side to null (unless already changed)
             if ($referent->getDistrict() === $this) {
                 $referent->setDistrict(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Donation[]
-     */
-    public function getDonations(): Collection
-    {
-        return $this->donations;
-    }
-
-    public function addDonation(Donation $donation): self
-    {
-        if (!$this->donations->contains($donation)) {
-            $this->donations[] = $donation;
-            $donation->setDistrict($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDonation(Donation $donation): self
-    {
-        if ($this->donations->contains($donation)) {
-            $this->donations->removeElement($donation);
-            // set the owning side to null (unless already changed)
-            if ($donation->getDistrict() === $this) {
-                $donation->setDistrict(null);
             }
         }
 

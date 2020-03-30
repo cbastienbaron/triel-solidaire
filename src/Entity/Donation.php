@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Donation
 {
+
+    use
+        Traits\CreatedEntity;
+        
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -47,11 +51,6 @@ class Donation
     private $additionalInfo;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $donateAt;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isCollected = false;
@@ -68,14 +67,9 @@ class Donation
     private $recipient;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Referent", inversedBy="donations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Collect", inversedBy="donations")
      */
-    private $assignedTo;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\District", inversedBy="donations")
-     */
-    private $district;
+    private $collect;
 
 
     public function __construct()
@@ -148,18 +142,6 @@ class Donation
         return $this;
     }
 
-    public function getDonateAt(): ?\DateTimeInterface
-    {
-        return $this->donateAt;
-    }
-
-    public function setDonateAt(?\DateTimeInterface $donateAt): self
-    {
-        $this->donateAt = $donateAt;
-
-        return $this;
-    }
-
     /**
      * @return Collection|TypeOfDonation[]
      */
@@ -224,31 +206,20 @@ class Donation
         return $this;
     }
 
-    public function getAssignedTo(): ?Referent
-    {
-        return $this->assignedTo;
-    }
-
-    public function setAssignedTo(?Referent $assignedTo): self
-    {
-        $this->assignedTo = $assignedTo;
-
-        return $this;
-    }
 
     public function __toString()
     {
         return $this->person;
     }
 
-    public function getDistrict(): ?District
+    public function getCollect(): ?Collect
     {
-        return $this->district;
+        return $this->collect;
     }
 
-    public function setDistrict(?District $district): self
+    public function setCollect(?Collect $collect): self
     {
-        $this->district = $district;
+        $this->collect = $collect;
 
         return $this;
     }

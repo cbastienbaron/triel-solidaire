@@ -5,72 +5,35 @@
 <div class="solidarity-wrapper">
   <div class="row">
 
-    <div class="col-sm-12  col-md-6">
-      <form method="post">
-          <div class="row">
-            <div class="col">
-              <h5 class="p-3 mb-2 bg-primary text-white">Je me connecte</h5>
-            </div>
-          </div>
-
-          {% if error %}
-              <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-          {% endif %}
-
-          {% if app.user %}
-              <div class="mb-3">
-                  Vous êtes identifié comme {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a>
-              </div>
-          {% endif %}
-
-          <label for="email">Email</label>
-          <input type="text" value="" name="email" id="email" class="form-control" required autofocus>
-
-          <label for="password">Mot de passe</label>
-          <input type="password" name="password" id="password" class="form-control" required>
-
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-          <div class="form-group row" style="text-align:center;">
-            <button type="submit" class="btn btn-primary">
-                Je me connecte
-            </button>
-          </div>
-          
-      </form>
-    </div>
-
     <div class="col-sm-12 col-md-6">
 
-      {{ form_start(registrationForm) }}
+      {{ form_start(form) }}
 
         <div class="row">
           <div class="col">
-            <h5 class="p-3 mb-2 bg-primary text-white">Je veux m'incrire comme référant</h5>
+            <h5 class="p-3 mb-2 bg-primary text-white">Je met à jour mon profil</h5>
           </div>
         </div>
       
-        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(form.firstname) }}
         
-        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(form.lastname) }}
         
-        {{ form_row(registrationForm.email) }}
+        {{ form_row(form.email) }}
         
-        {{ form_row(registrationForm.phone) }}
+        {{ form_row(form.phone) }}
         
-        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(form.district) }}
         
-        {{ form_row(registrationForm.district) }}
+        {{ form_row(form.address) }}
         
-        {{ form_row(registrationForm.address) }}
-        
-        {{ form_row(registrationForm.infos) }}
+        {{ form_row(form.infos) }}
 
         <div class="row">
-          <button type="submit" class="btn btn-primary">Je m'inscris comme référent</button>
+          <button type="submit" class="btn btn-primary">Je met à jour mon profil</button>
         </div>
 
-      {{ form_end(registrationForm) }}
+      {{ form_end(form) }}
 
     </div>
     

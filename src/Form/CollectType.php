@@ -6,19 +6,29 @@ use App\Entity\Collect;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CollectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startAt')
-            ->add('endAt')
-            ->add('isCollected')
+            ->add('startAt', DateTimeType::class,
+            [
+                'label'   => 'Début de la collecte',
+                'required' => true,
+                'widget' => 'single_text'
+            ])
+            ->add('endAt', DateTimeType::class,
+            [
+                'label'   => 'Fin de la collecte',
+                'required' => true,
+                'widget' => 'single_text'
+            ])
             ->add('infos')
             ->add('internalDescription')
-            ->add('assignedTo')
-            ->add('district')
+            //->add('assignedTo')
+            //->add('district')
         ;
     }
 

@@ -7,8 +7,10 @@ use App\Repository\RecipientRepository;
 use App\Repository\ReferentRepository;
 use App\Repository\TagRepository;
 use App\Repository\HomeRepository;
+use App\Repository\CollectRepository;
 use App\Entity\Tag;
 use App\Entity\Contact;
+use App\Entity\District;
 use App\Form\ContactType;
 use App\Repository\ActivityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +38,10 @@ class IndexController extends AbstractController
 
     /** @var HomeRepository */
     private $homeRepository;
-    
+
+    /** @var CollectRepository */
+    private $collectRepository;
+
     /** @var PaginatorInterface */
     private $paginator;
 
@@ -47,6 +52,7 @@ class IndexController extends AbstractController
         TagRepository $tagRepository,
         ActivityRepository $activityRepository,
         HomeRepository $homeRepository,
+        CollectRepository $collectRepository,
         PaginatorInterface $paginator
     )
     {
@@ -56,6 +62,7 @@ class IndexController extends AbstractController
         $this->tagRepository       = $tagRepository;
         $this->activityRepository  = $activityRepository;
         $this->homeRepository      = $homeRepository;
+        $this->collectRepository   = $collectRepository;
         $this->paginator           = $paginator;
     }
 
@@ -64,14 +71,16 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-;
+
+        
         return 
             $this
                 ->render(
                     'index/index.html.twig', 
                     [
                         'thanks' => $this->thanksRepository->findForSliderHome(),
-                        'abstract' => $this->homeRepository->findOneBy(['name' => 'abstract'])
+                        'abstract' => $this->homeRepository->findOneBy(['name' => 'abstract']),
+                        'collects' => $this->collectRepository->findLastCollect()
                     ]
                 )
             ;
@@ -191,4 +200,13 @@ class IndexController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/quartier/{slug}", name="app.district")
+     */
+    public function district(District $district)
+    {
+        return $this->render('index/district.html.twig', [
+            'district' => $district,
+        ]);
+    }
 }

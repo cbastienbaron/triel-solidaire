@@ -106,26 +106,6 @@ class AppFixtures extends Fixture
             $i++;
         }
 
-        $donation = new Donation();
-        $donation
-            ->setPerson('jean michou')
-            ->setRecipient($careDest)
-            ->addTypeOfDonation($typeLunchCare)
-            ->setAssignedTo($referent)
-            ->setDistrict($districtBeauregard)
-        ;
-
-        $donationWithoutAssignement = new Donation();
-        $donationWithoutAssignement
-            ->setPerson('ac/dc')
-            ->setRecipient($careDest)
-            ->addTypeOfDonation($typeLunchCare)
-            ->setDistrict($districtBeauregard)
-        ;
-
-
-        $manager->persist($donation);
-        $manager->persist($donationWithoutAssignement);
 
         $tag = new Tag();
         $tag->setName('enfant');
@@ -201,7 +181,7 @@ class AppFixtures extends Fixture
         $manager->persist($contact);
 
         $i = 0;
-        while($i < 10) {
+        while($i < 2) {
 
             $now = new \DateTime('now');
             $end = clone $now;
@@ -221,6 +201,50 @@ class AppFixtures extends Fixture
             $i++;
         }
 
+         
+        $collect = new Collect();
+        $collect
+            ->setStartAt($now)
+            ->setEndAt($end)
+            ->setDistrict($district)
+            ->setAssignedTo($referent)
+            ->setInfos('collecte en voiture')
+            ->setInternalDescription('donateurs très sympas !')
+        ;
+
+        $manager->persist($collect);
+
+
+
+        $donation = new Donation();
+        $donation
+            ->setPerson('jean michou')
+            ->setRecipient($careDest)
+            ->setPhone('0606060606')
+            ->setEmail('monmain@gmail.com')
+            ->setAdditionalInfo('Sonner à l\'interphone')
+            ->setAdress('7 rue machin')
+            ->addTypeOfDonation($typeLunchCare)
+            // ->setAssignedTo($referent)
+            // ->setDistrict($districtBeauregard)
+            ->setCollect($collect)
+        ;
+
+        $donationWithoutAssignement = new Donation();
+        $donationWithoutAssignement
+            ->setPerson('ac/dc')
+            ->setRecipient($careDest)
+            ->addTypeOfDonation($typeLunchCare)
+            // ->setDistrict($districtBeauregard)
+            ->setAdditionalInfo('Sonner à l\'interphone')
+            ->setAdress('7 rue machin')
+
+            ->setCollect($collect)
+        ;
+
+
+        $manager->persist($donation);
+        $manager->persist($donationWithoutAssignement);
 
         $manager->flush();
     }

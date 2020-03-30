@@ -41,6 +41,22 @@
     </p>
   {% endif %}
 
+
+  <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+          <h2 class="display-4">Collectes à venir</h2>
+          <ul class="solidarity-collects">
+            {% for collect in collects %}
+                <li>
+                  Quartier <a href="{{ path('app.district', {'slug' : collect.district.slug })}}">{{ collect.district.name}}</a> - Début {{ collect.startAt|date('d/m/Y H:i')}}  
+                  <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don</a>
+                </li>
+            {% endfor %}
+          </ul>
+      </div>
+  </div>
+  
+  
   {# <ul>
     <li><a href="">Comment soutenir les soignants ? </a></li>
     <li><a href="">Comment aider sans aggraver la situation ?</a></li> 

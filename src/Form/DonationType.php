@@ -3,7 +3,7 @@
 namespace App\Form;
 
 
-use App\Entity\District;
+use App\Entity\Collect;
 use App\Entity\Donation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -45,12 +45,26 @@ class DonationType extends AbstractType
             )
 
             ->add(
-                'district',
+                'collect',
                 EntityType::class,
                 [
-                    'label'    => 'Votre Quartier',
-                    'class'    => District::class,
-                    'choice_label' => 'name',
+                    'label'    => 'Choix de la collecte',
+                    'class'    => Collect::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return 
+                            $er
+                                ->createQueryBuilder('c')
+                                ->where('c.endAt > :now')
+                                ->setParameter('now', new \DateTime('now'))
+                            ;
+                    },
+                    'choice_label' => function ($collect) {
+                        return 'Début : '.$collect->getStartAt()->format('d/m/Y H:i') . ' - ' . 'Fin : '.$collect->getEndAt()->format('d/m/Y H:i');
+                    },
+                    'group_by' => function($choice, $key, $value) {
+                        return 'Quartier ' . $choice->getDistrict()->getName();
+                    },
+                    'placeholder' => 'Merci de choisir un secteur et une date de collecte',
                 ]
             )
 
@@ -81,15 +95,15 @@ class DonationType extends AbstractType
                 ]
             )
 
-            ->add(
-                'donateAt',
-                DateTimeType::class,
-                [
-                    'label'   => 'Date souhaitée pour le ramassage de votre don',
-                    'required' => false,
-                    'widget' => 'single_text'
-                ]
-            )
+            // ->add(
+            //     'donateAt',
+            //     DateTimeType::class,
+            //     [
+            //         'label'   => 'Date souhaitée pour le ramassage de votre don',
+            //         'required' => false,
+            //         'widget' => 'single_text'
+            //     ]
+            // )
 
             ->add('typeOfDonations', EntityType::class, [
                 'label'   => 'Type de dons',

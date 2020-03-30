@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Referent;
 use App\Form\RegistrationFormType;
+use App\Form\ProfilFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,6 @@ class SecurityController extends AbstractController
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
         $user = new Referent();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -81,12 +78,44 @@ class SecurityController extends AbstractController
     /**
      * @Route("/profil", name="app.profil")
      */
-    public function profil()
+    public function profil(Request $request)
     {
+
+        $user = $this->getUser();
+        $form = $this->createForm(ProfilFormType::class, $user);
+        $form->handleRequest($request);
+
+        // register
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app.profil.success');
+        }
 
         return 
             $this->render(
-                'security/profil.html.twig'
+                'security/profil.html.twig',
+                [
+                    'form' => $form->createView()
+                ]
             );
     }
+
+    /**
+     * @Route("/profil/success", name="app.profil.success")
+     */
+    public function profilSuccess()
+    {
+        return 
+            $this->render(
+                'security/profil_succcess.html.twig'
+            );
+    }
+
 }

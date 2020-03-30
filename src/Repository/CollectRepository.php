@@ -19,6 +19,19 @@ class CollectRepository extends ServiceEntityRepository
         parent::__construct($registry, Collect::class);
     }
 
+    public function findLastCollect()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.endAt > :now')
+            ->setParameter('now', new \DateTime('now'))
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
     // /**
     //  * @return Collect[] Returns an array of Collect objects
     //  */

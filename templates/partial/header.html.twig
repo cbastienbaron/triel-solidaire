@@ -35,8 +35,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ path('app.profil') }}">Mon profil</a>
-                    <a class="dropdown-item" href="#">Mes collectes</a>
-                    <a class="dropdown-item" href="#">Créer une collecte</a>
+                    <a class="dropdown-item" href="{{ path('app.collect.index') }}">Mes collectes</a>
+                    <a class="dropdown-item" href="{{ path('app.collect.create') }}">Créer une collecte</a>
                     <div class="dropdown-divider"></div>
                     {% if app.user %}
                         <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>

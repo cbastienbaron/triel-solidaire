@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="solidarity-wrapper">
+
+  {% if isSuccess %}
+    Félicitation votre création de collecte est active ! Merci
+  {% else %}
+ 
+    {{ form_start(form) }}
+
+        {{ form_row(form.startAt) }}
+
+        {{ form_row(form.endAt) }}
+        
+        {{ form_row(form.infos) }}
+
+        {{ form_row(form.internalDescription) }}
+
+        <button type="submit" class="btn btn-primary">Création de la collecte pour le quartier {{ user.district.name }}</button>
+    {{ form_end(form) }}
+  {% endif %}
+
+</div>
+
+{% endblock %}

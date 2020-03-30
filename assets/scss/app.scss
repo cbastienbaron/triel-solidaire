@@ -40,6 +40,7 @@ h1 {
 .solidarity-hightlight {
     background: blue;
     color: #FFF;
+    padding: 10px;
 }
 
 .solidarity-thanks-list, 
@@ -90,4 +91,12 @@ h1 {
 
 .container-fluid form button {
     margin: 10px auto;
+}
+
+.solidarity-collects {
+    list-style-type: none;
+    text-align: left;
+    li {
+        margin: 5px 0;
+    }
 }

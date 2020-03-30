@@ -33,6 +33,7 @@ easy_admin:
                         - 'startAt'
                         - 'endAt'
                         - 'isCollected'
+                        - 'assignedTo'
                         - 'infos'
                         - 'internalDescription'
                 list:
@@ -49,6 +50,7 @@ easy_admin:
                         - 'startAt'
                         - 'endAt'
                         - 'isCollected'
+                        - 'assignedTo'
                         - 'infos'
                         - 'internalDescription'               
             Contact:
@@ -165,14 +167,14 @@ easy_admin:
                         - 'id'
                         - 'name'
                         - 'referents'
-                        - 'donations'
+                        - 'collects'
     
                 list:
                     fields:
                         - 'id'
                         - 'name'
                         - 'referents'
-                        - 'donations'
+                        - 'collects'
     
                 form:
                     fields:
@@ -188,7 +190,7 @@ easy_admin:
                         - 'phone'
                         - 'infos'
                         - 'address'
-                        - 'donations'
+                        - 'collects'
                         - 'isValidated'
                         - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
@@ -197,11 +199,11 @@ easy_admin:
                         - 'firstname'
                         - 'lastname'
                         - 'district'
+                        - 'collects'
                         - 'email'
                         - 'phone'
-                        - 'donations'
+                        - 'collects'
                         - 'isValidated'
-                        - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
                 form:
                     fields:
@@ -212,7 +214,7 @@ easy_admin:
                         - 'phone'
                         - 'infos'
                         - 'address'
-                        - 'donations'
+                        - 'collects'
                         - 'isValidated'
                         - { property: 'mainFile', type: 'vich_image'}
                         
@@ -243,30 +245,30 @@ easy_admin:
                         - 'person'
                         - 'phone'
                         - 'recipient'
-                        - 'district'
+                        - 'collect'
                         - 'typeOfDonations'
-                        - 'donateAt'
-                        - 'assignedTo'
+                        # - 'donateAt'
+                        # - 'assignedTo'
                         - 'isCollected'
+                        - 'createdAt'
                 list:
                     fields:
                         - 'id'
                         - 'person'
                         - 'phone'
-                        - 'district'
+                        - 'collect'
                         - 'recipient'
                         - 'isCollected'
-                        - 'assignedTo'
+                        - 'createdAt'
+                        # - 'assignedTo'
                 form:
                     fields:
                         - 'person'
                         - 'phone'
                         - 'email'
-                        - 'district'
                         - 'recipient'
-                        - 'donateAt'
                         - 'isCollected'
-                        - { property: 'assignedTo', type_options: { class: 'App\Entity\Referent' } }
+                        - { property: 'collect', type_options: { class: 'App\Entity\Collect' } }
 
             UnassignedDonations:
                 class: App\Entity\Donation

@@ -6,16 +6,12 @@
 
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h2 class="display-4">Liste des référents de quartier</h2>
-      <p class="lead">
-        Vous souhaitez aider, devenez référents ou identifiez vous pour consulter votre planning des collectes
-      </p>
-      <a href="{{ path('app_login') }}" class="btn btn-primary">Inscription / Identification</a>
+      <h2 class="display-4">Liste des collectes de quartier et référents</h2>
     </div>
   </div>
 
   <ul class="list-group list-group-flush solidarity-referents-list">
-    {% for referent in referents %}
+    {% for referent in district.referents %}
         <li class="list-group-item">
 
             {% if referent.file %}
@@ -34,16 +30,18 @@
               <br>Email : <a href="mailto:{{ referent.email }}">{{ referent.email }}</a>
             {% endif %}
 
-            {% if referent.district %}
-              <br>Quartier : <a href="{{ path('app.district', {'slug' : referent.district.slug })}}">{{ referent.district }}</a>
-            {% endif %}
         </li>
     {% endfor %}    
   </ul>
 
-  <div class="navigation">
-      {{ knp_pagination_render(referents) }}
-  </div>
 
+  <ul class="solidarity-collects">
+  {% for collect in district.collects %}
+      <li>
+        Quartier <a href="{{ path('app.district', {'slug' : collect.district.slug })}}">{{ collect.district.name}}</a> - Début {{ collect.startAt|date('d/m/Y H:i')}}  
+        <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don</a>
+      </li>
+  {% endfor %}
+  </ul>
 </div>
 {% endblock %}
