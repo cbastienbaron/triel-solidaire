@@ -10,6 +10,5 @@ $(document).ready(function(){
         {
             captions: true
         }
-
     );
 });

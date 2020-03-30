@@ -2,5 +2,45 @@
 
 
 {% block body %}
-    merci merci !
+ <div class="solidarity-wrapper">
+   
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h2 class="display-4">Merci ! </h2>
+      <p class="lead">
+        à nos <a href="{{ path('app.thanks.merchant')}}">commerçants</a> et aux <a href="{{ path('app.thanks.citizens')}}">habitants</a> pour leur solidarité
+      </p>
+    </div>
+  </div>
+
+  <ul class="list-group list-group-flush solidarity-thanks-list">
+    {% for thank in thanks %}
+        <li class="list-group-item">
+
+            {% if thank.file %}
+                <a data-fancybox="gallery" href="{{ vich_uploader_asset(thank, 'mainFile') }}">
+                  <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('thanks') }}" title="{{ thank.title}}">
+              </a>
+            {% else %}            
+                <img src="/default.png" title="{{ thank.title }}">
+            {% endif %}
+            <div>
+                <p><strong>{{ thank.title }}</strong></p> 
+                
+                <p>{{ thank.description|raw }}</p>
+
+                {% if thank.url %} 
+                    <a href="{{ thank.url }}" target="_blank">{{ thank.url }}</a>
+                {% endif %}
+            </div>
+    
+        </li>
+    {% endfor %}
+      
+  </ul>
+  <div class="navigation">
+      {{ knp_pagination_render(thanks) }}
+  </div>
+</div>
+
 {% endblock %}

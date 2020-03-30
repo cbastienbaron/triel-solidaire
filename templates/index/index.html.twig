@@ -3,7 +3,17 @@
 {# {% block title %}Hello IndexController!{% endblock %} #}
     
 
+{% block stylesheets %}
+    {{ parent() }}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+{% endblock %}
 
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+{% endblock %}
 
 {% block body %}
 
@@ -11,28 +21,33 @@
 
   <p style="text-align:center">Merci merci !</p>  
 
-  <div class="slider">
+  {% if thanks %}
+    <div class="slider">
 
-    {% for thank in thanks %}
-      <div>
-          <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('slider') }}" title="{{ thank.title }}">
-      </div>
-    {% endfor %}
-  </div>
+      {% for thank in thanks %}
+        
+          <div>
+              <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('slider') }}" title="{{ thank.title }}">
+          </div>
+        
+      {% endfor %}
 
-  <p class="solidarity-hightlight">
-    La crise sanitaire oblige les habitants à rester chez eux, afin de limiter la propagation du virus. 
-    Certaines personnes sont en première ligne (notamment le personnel hospitalier) et d'autres sont à protéger en priorité. 
-    Plusieurs questions se posent alors:
-  </p>
+    </div>
+  {% endif %}
 
-  <ul>
+  {% if abstract %}
+    <p class="solidarity-hightlight">
+      {{ abstract.content|raw }}
+    </p>
+  {% endif %}
+
+  {# <ul>
     <li><a href="">Comment soutenir les soignants ? </a></li>
     <li><a href="">Comment aider sans aggraver la situation ?</a></li> 
     <li><a href="">Comment se faire aider si je dois rester confiner ?</a></li> 
     <li><a href="">Comment occuper les enfants ? </a></li>
     <li><a href="">Que se passe t il dans ma ville ?</a></li>
-  </ul>
+  </ul> #}
 
 
 </div>

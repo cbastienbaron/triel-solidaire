@@ -19,6 +19,65 @@ class ThanksRepository extends ServiceEntityRepository
         parent::__construct($registry, Thanks::class);
     }
 
+
+    public function findForSliderHome()
+    {
+        return 
+            $this
+                ->createQueryBuilder('t')
+                ->andWhere('t.isEnabled = 1')
+                ->andWhere('t.file IS NOT NULL')
+                ->orderBy('t.createdAt', 'DESC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;   
+    }
+
+    public function findEnabled()
+    {
+        return 
+            $this
+                ->createQueryBuilder('t')
+                ->andWhere('t.isEnabled = 1')
+                //->andWhere('t.file IS NOT NULL')
+                ->orderBy('t.createdAt', 'DESC')
+                //->setMaxResults(10)
+                ->getQuery()
+                //->getResult()
+            ;   
+    }
+
+    public function findMerchantEnabled()
+    {
+        return 
+            $this
+                ->createQueryBuilder('t')
+                ->andWhere('t.isEnabled = 1')
+                ->andWhere('t.isMerchant = 1')
+                //->andWhere('t.file IS NOT NULL')
+                ->orderBy('t.createdAt', 'DESC')
+                //->setMaxResults(10)
+                ->getQuery()
+                //->getResult()
+            ;   
+    }
+
+    public function findCitizenEnabled()
+    {
+        return 
+            $this
+                ->createQueryBuilder('t')
+                ->andWhere('t.isEnabled = 1')
+                ->andWhere('t.isMerchant = 0')
+                //->andWhere('t.file IS NOT NULL')
+                ->orderBy('t.createdAt', 'DESC')
+                //->setMaxResults(10)
+                ->getQuery()
+                //->getResult()
+            ;   
+    }
+
     // /**
     //  * @return TypeOfDonation[] Returns an array of TypeOfDonation objects
     //  */

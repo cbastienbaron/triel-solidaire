@@ -10,9 +10,11 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
         <meta property="og:type" content="website" />
@@ -26,7 +28,7 @@
     </head>
     <body>
 
-            {% include "partial/header.html.twig" %}
+        {% include "partial/header.html.twig" %}
 
         <div class="container-fluid">
 
@@ -34,9 +36,11 @@
 
         </div>
 
-        <footer class="blockquote-footer">
-            Someone famous in <cite title="Source Title">Source Title</cite>
-        </footer>
+        {# <footer class="footer">
+            {# <div class="container"> #}
+                {# <span class="text-muted">Place sticky footer content here.</span> #}
+            {# </div> #
+        </footer> #}
     
     </body>
 

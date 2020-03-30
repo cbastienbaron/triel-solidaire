@@ -8,6 +8,77 @@ easy_admin:
     
         entities:
             # List the entity class name you want to manage
+            Content:
+                class: App\Entity\Home
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'content'
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'content'
+                form:
+                    fields:
+                        - 'name'
+                        - 'content'
+            Collect:
+                class: App\Entity\Collect
+                show:
+                    fields:
+                        - 'id'
+                        - 'district'
+                        - 'startAt'
+                        - 'endAt'
+                        - 'isCollected'
+                        - 'infos'
+                        - 'internalDescription'
+                list:
+                    fields:
+                        - 'id'
+                        - 'district'
+                        - 'startAt'
+                        - 'endAt'
+                        - 'isCollected'
+                        - 'assignedTo'
+                form:
+                    fields:
+                        - 'district'
+                        - 'startAt'
+                        - 'endAt'
+                        - 'isCollected'
+                        - 'infos'
+                        - 'internalDescription'               
+            Contact:
+                class: App\Entity\Contact
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'email'
+                        - 'subject'
+                        - 'description'
+                        - 'createdAt'
+
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'email'
+                        - 'subject'
+                        - 'description'
+                        - 'createdAt'
+
+                form:
+                    fields:
+                        - 'name'
+                        - 'email'
+                        - 'subject'
+                        - 'description'
+                        - 'createdAt'
+
             Tags:
                 class: App\Entity\Tag
                 show:
@@ -21,23 +92,55 @@ easy_admin:
                 form:
                     fields:
                         - 'name'
+            Activites:
+                class: App\Entity\Activity
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'description'
+                        - 'url'
+                        - 'tags'
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'description'
+                        - 'url'
+                        - 'tags'
+                form:
+                    fields:
+                        - 'name'
+                        - 'description'
+                        - 'url'
+                        - 'tags'                        
             Thanks:
                 class: App\Entity\Thanks
                 show:
                     fields:
                         - 'id'
                         - 'title'
+                        - 'isEnabled'
+                        - 'isMerchant'
+                        - 'description'
+                        - { property: 'url', type: 'url'}
                         - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
                 list:
                     fields:
                         - 'id'
                         - 'title'
+                        - 'isEnabled'
+                        - 'isMerchant'
                         - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
                 form:
                     fields:
                         - 'title'
+                        - 'description'
+                        - 'isEnabled'
+                        - 'isMerchant'
+                        - { property: 'url', type: 'url'}
                         - { property: 'mainFile', type: 'vich_image'}
     
             Recipient:
@@ -55,6 +158,25 @@ easy_admin:
                 form:
                     fields:
                         - 'name'
+            District:
+                class: App\Entity\District
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'referents'
+                        - 'donations'
+    
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'referents'
+                        - 'donations'
+    
+                form:
+                    fields:
+                        - 'name'                        
             Referent:
                 class: App\Entity\Referent
                 show:
@@ -62,21 +184,23 @@ easy_admin:
                         - 'firstname'
                         - 'lastname'
                         - 'email'
-                        - 'quartier'
+                        - 'district'
                         - 'phone'
                         - 'infos'
                         - 'address'
                         - 'donations'
+                        - 'isValidated'
                         - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
                 list:
                     fields:
                         - 'firstname'
                         - 'lastname'
-                        - 'quartier'
+                        - 'district'
                         - 'email'
                         - 'phone'
                         - 'donations'
+                        - 'isValidated'
                         - { property: 'file', template: 'admin/vich_uploader_image.html.twig' }
     
                 form:
@@ -84,11 +208,12 @@ easy_admin:
                         - 'firstname'
                         - 'lastname'
                         - 'email'
-                        - 'quartier'
+                        - 'district'
                         - 'phone'
                         - 'infos'
                         - 'address'
                         - 'donations'
+                        - 'isValidated'
                         - { property: 'mainFile', type: 'vich_image'}
                         
             TypeOfDonation:
@@ -118,6 +243,7 @@ easy_admin:
                         - 'person'
                         - 'phone'
                         - 'recipient'
+                        - 'district'
                         - 'typeOfDonations'
                         - 'donateAt'
                         - 'assignedTo'
@@ -127,6 +253,7 @@ easy_admin:
                         - 'id'
                         - 'person'
                         - 'phone'
+                        - 'district'
                         - 'recipient'
                         - 'isCollected'
                         - 'assignedTo'
@@ -135,6 +262,7 @@ easy_admin:
                         - 'person'
                         - 'phone'
                         - 'email'
+                        - 'district'
                         - 'recipient'
                         - 'donateAt'
                         - 'isCollected'
@@ -153,23 +281,30 @@ easy_admin:
                 js:
                     - 'bundles/easyadmin/bootstrap-all.js'
             menu:
+                - { label: 'Gestion contenu/contact' }
+                - { entity: 'Content', label: 'Contenu' }
+                - { entity: 'Contact', label: 'Formulaire de contact' }
+                
                 - { label: 'Donations' }
-                - { entity: 'Donation', label: 'Dons', icon: 'industry' }
-                - { entity: 'UnassignedDonations', label: 'Dons Non assignés', icon: 'industry' }
+                - { entity: 'Collect', label: 'Gestion des collectes' }
+                - { entity: 'Donation', label: 'Dons' }
+                - { entity: 'UnassignedDonations', label: 'Dons Non assignés' }
 
                 - { label: 'Referent' }
-                - { entity: 'Referent', label: 'Gestion des référents', icon: 'industry' }
+                - { entity: 'Referent', label: 'Gestion des référents' }
                 
                 - { label: 'Remerciements' }
-                - { entity: 'Thanks', label: 'Gestion Remerciements', icon: 'money' }
+                - { entity: 'Thanks', label: 'Gestion Remerciements' }
                 
                 - { label: 'Activites' }
-                - { entity: 'Tags', label: 'Gestion des tags', icon: 'tag' }
+                - { entity: 'Tags', label: 'Gestion des tags' }
+                - { entity: 'Activites', label: 'Gestion des activités' }
                 
 
                 - { label: 'Gestion sytèmes donations' }
-                - { entity: 'Recipient', label: 'Gestion Type Beneficiaires', icon: 'industry' }
-                - { entity: 'TypeOfDonation', label: 'Gestion Type de dons', icon: 'industry' }
+                - { entity: 'Recipient', label: 'Gestion Type Beneficiaires' }
+                - { entity: 'TypeOfDonation', label: 'Gestion Type de dons' }
+                - { entity: 'District', label: 'Gestion des quartiers' }
 
                 # - { entity: 'Outgoing', label: 'Stats output', icon: 'bar-chart' }
                 # - { entity: 'Link', label: 'Affiliate Links', icon: 'bar-chart' }

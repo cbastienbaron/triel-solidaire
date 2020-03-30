@@ -2,17 +2,23 @@
 
 
 {% block body %}
+<div class="solidarity-wrapper">
 
-    
-    <h1>Je fais un don pour</h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2 class="display-4">Je fais un don pour</h2>
 
-    <ul class="donate-dispatch-list">
+            <ul class="donate-dispatch-list">
 
-        {% for recipient in recipients %}
-            <li>
-                <a href="{{ path('app.donate.dispatch', {'slug' : recipient.slug }) }}" class="btn btn-primary" role="button">{{ recipient.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+                {% for recipient in recipients %}
+                    <li>
+                        <a href="{{ path('app.donate.dispatch', {'slug' : recipient.slug }) }}" class="btn btn-primary" role="button">{{ recipient.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}

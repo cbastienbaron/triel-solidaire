@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  {% if isConfirmation %}
+    Votre demande de contact a bien été envoyée ! Merci
+  {% else %}
+    {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+
+        {{ form_row(form.email) }}
+        
+        {{ form_row(form.subject) }}
+
+        {{ form_row(form.description) }}
+
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    {{ form_end(form) }}
+  {% endif %}
+{% endblock %}

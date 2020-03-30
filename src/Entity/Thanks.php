@@ -45,9 +45,19 @@ class Thanks
     private $title;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
 
     /**
      * @Vich\UploadableField(mapping="thanks", fileNameProperty="file")
@@ -60,6 +70,11 @@ class Thanks
      * @ORM\Column(type="boolean")
      */
     private $isEnabled = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMerchant = false;
 
     /**
      * @ORM\Column(type="integer")
@@ -195,4 +210,65 @@ class Thanks
 
         return $this;
     }
+
+    /**
+     * Get the value of isMerchant
+     */ 
+    public function isMerchant()
+    {
+        return $this->isMerchant;
+    }
+
+    /**
+     * Set the value of isMerchant
+     *
+     * @return  self
+     */ 
+    public function setIsMerchant($isMerchant)
+    {
+        $this->isMerchant = $isMerchant;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of url
+     */ 
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set the value of url
+     *
+     * @return  self
+     */ 
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
 }

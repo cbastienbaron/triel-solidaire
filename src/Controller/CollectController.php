@@ -4,21 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Recipient;
 use App\Entity\Donation;
+use App\Entity\Collect;
 use App\Form\DonationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/je-fais-un-don")
+ * @Route("/mes-collectes")
  */
-class DonateController extends AbstractController
+class CollectController extends AbstractController
 {
     /**
-     * @Route("/{slug}", name="app.donate.dispatch")
+     * @Route("/", name="app.collect.index")
      */
-    public function dispatch(Request $request, Recipient $recipient)
+    public function index(Request $request, Recipient $recipient)
     {
+
         $donation = new Donation();
         $donation
             ->setRecipient($recipient)
@@ -46,14 +48,27 @@ class DonateController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/merci", name="app.donate.success")
+     * @Route("/{id}", name="app.collect.view")
      */
-    public function success(Request $request, Recipient $recipient)
+    public function view(Request $request, Collect $collect)
     {
+        // check collect user
 
         return $this->render('donate/success.html.twig', [
             'recipient' => $recipient,
         ]);
     }
 
+    /**
+     * @Route("/creation", name="app.collect.create")
+     */
+    public function create(Request $request)
+    {
+
+        // check collect user
+
+        return $this->render('donate/success.html.twig', [
+            'recipient' => $recipient,
+        ]);
+    }
 }

@@ -6,7 +6,10 @@ use App\Repository\ThanksRepository;
 use App\Repository\RecipientRepository;
 use App\Repository\ReferentRepository;
 use App\Repository\TagRepository;
+use App\Repository\HomeRepository;
 use App\Entity\Tag;
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Repository\ActivityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +34,9 @@ class IndexController extends AbstractController
     /** @var ActivityRepository */
     private $activityRepository;
 
+    /** @var HomeRepository */
+    private $homeRepository;
+    
     /** @var PaginatorInterface */
     private $paginator;
 
@@ -40,6 +46,7 @@ class IndexController extends AbstractController
         ReferentRepository $referentRepository,
         TagRepository $tagRepository,
         ActivityRepository $activityRepository,
+        HomeRepository $homeRepository,
         PaginatorInterface $paginator
     )
     {
@@ -48,6 +55,7 @@ class IndexController extends AbstractController
         $this->referentRepository  = $referentRepository;
         $this->tagRepository       = $tagRepository;
         $this->activityRepository  = $activityRepository;
+        $this->homeRepository      = $homeRepository;
         $this->paginator           = $paginator;
     }
 
@@ -56,18 +64,47 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        return $this->render('index/index.html.twig', [
-            'thanks' => $this->thanksRepository->findBy([], ['createdAt' => 'desc'], 10),
-        ]);
+;
+        return 
+            $this
+                ->render(
+                    'index/index.html.twig', 
+                    [
+                        'thanks' => $this->thanksRepository->findForSliderHome(),
+                        'abstract' => $this->homeRepository->findOneBy(['name' => 'abstract'])
+                    ]
+                )
+            ;
     }
 
     /**
      * @Route("/remerciements", name="app.thanks")
+     * @Route("/remerciements/commercant", name="app.thanks.merchant")
+     * @Route("/remerciements/habitant", name="app.thanks.citizens")
      */
-    public function thanks()
+    public function thanks(Request $request)
     {
+        $route = $request->attributes->get('_route');
+        switch($route) {
+            case 'app.thanks.merchant':
+                $qb    = $this->thanksRepository->findMerchantEnabled();
+            break; 
+            case 'app.thanks.citizens':
+                $qb    = $this->thanksRepository->findCitizenEnabled();
+            break;
+            default:
+            $qb    = $this->thanksRepository->findEnabled();
+            break;
+        }
+     
+        $thanks = $this->paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('index/thanks.html.twig', [
-            'controller_name' => 'IndexController',
+            'thanks' => $thanks,
         ]);
     }
 
@@ -77,7 +114,7 @@ class IndexController extends AbstractController
     public function referents(Request $request)
     {
         $referents = $this->paginator->paginate(
-            $this->referentRepository->createQueryBuilder('r')->getQuery(),
+            $this->referentRepository->createQueryBuilder('r')->where('r.isValidated = 1')->getQuery(),
             $request->query->getInt('page', 1),
             10
         );
@@ -123,4 +160,35 @@ class IndexController extends AbstractController
                 ])
             ;
     }
+
+        
+    /**
+     * @Route("/contact", name="app.contact")
+     * @Route("/contact/confirmation", name="app.contact.confirmation")
+     */
+    public function contact(Request $request)
+    {
+        $contact = new Contact();
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $contact = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($contact);
+            $manager->flush();
+
+            // do anything else you need here, like send an email
+            return $this->redirectToRoute('app.contact.confirmation');
+        }
+
+        return $this->render('index/contact.html.twig', [
+            'form'           => $form->createView(),
+            'isConfirmation' => 'app.contact.confirmation' == $request->attributes->get('_route'),
+        ]);
+    }
+
 }

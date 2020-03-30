@@ -28,6 +28,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        // register
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user
@@ -74,6 +75,18 @@ class SecurityController extends AbstractController
         return 
             $this->render(
                 'security/register_succcess.html.twig'
+            );
+    }
+
+    /**
+     * @Route("/profil", name="app.profil")
+     */
+    public function profil()
+    {
+
+        return 
+            $this->render(
+                'security/profil.html.twig'
             );
     }
 }

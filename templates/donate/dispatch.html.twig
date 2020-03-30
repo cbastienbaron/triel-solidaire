@@ -2,11 +2,12 @@
 
 {% block body %}
   
+<div class="solidarity-wrapper">
   {{ form_start(donationForm) }}
 
       {{ form_row(donationForm.person) }}
 
-      {{ form_row(donationForm.quartier) }}
+      {{ form_row(donationForm.district) }}
       
       {{ form_row(donationForm.phone) }}
 
@@ -22,4 +23,5 @@
 
       <button type="submit" class="btn btn-primary">je fais un don !</button>
   {{ form_end(donationForm) }}
+</div>
 {% endblock %}

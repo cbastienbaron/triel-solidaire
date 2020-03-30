@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{# {% block title %}Hello IndexController!{% endblock %} #}
-
 {% block body %}
 
 <div class="solidarity-wrapper">
 
-  <p style="text-align:center">Merci merci !</p>  
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h2 class="display-4">Liste des référents de quartier</h2>
+      <p class="lead">
+        Vous souhaitez aider, devenez référents ou identifiez vous pour consulter votre planning des collectes
+      </p>
+      <a href="{{ path('app_login') }}" class="btn btn-primary">Inscription / Identification</a>
+    </div>
+  </div>
 
   <ul class="list-group list-group-flush solidarity-referents-list">
     {% for referent in referents %}
@@ -15,22 +21,21 @@
             {% if referent.file %}
               <img src="{{ vich_uploader_asset(referent, 'mainFile') | imagine_filter('referent') }}" title="{{ referent.firstname ~ referent.lastname }}">
             {% else %}            
-              <img src="https://www.triel-sur-seine.fr/images/GBI_TRIEL/logo.png" title="{{ referent.firstname ~ referent.lastname }}">
+              <img src="/default.png" title="{{ referent.firstname ~ referent.lastname }}">
             {% endif %}
-
 
             {{ referent.firstname }} {{ referent.lastname }}
 
             {% if referent.phone %}
-              <br>Télephone : {{ referent.phone }} 
+              <br>Télephone : <a href="tel:{{ referent.phone }}">{{ referent.phone }}</a> 
             {% endif %}
 
             {% if referent.email %}
               <br>Email : <a href="mailto:{{ referent.email }}">{{ referent.email }}</a>
             {% endif %}
 
-            {% if referent.quartier %}
-              <br>Quartier : {{ referent.quartier }}
+            {% if referent.district %}
+              <br>Quartier : {{ referent.district }}
             {% endif %}
         </li>
     {% endfor %}    

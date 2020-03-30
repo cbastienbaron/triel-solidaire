@@ -39,11 +39,6 @@ class Donation
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $quartier;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $adress;
 
     /**
@@ -76,6 +71,11 @@ class Donation
      * @ORM\ManyToOne(targetEntity="App\Entity\Referent", inversedBy="donations")
      */
     private $assignedTo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\District", inversedBy="donations")
+     */
+    private $district;
 
 
     public function __construct()
@@ -224,26 +224,6 @@ class Donation
         return $this;
     }
 
-    /**
-     * Get the value of quartier
-     */ 
-    public function getQuartier()
-    {
-        return $this->quartier;
-    }
-
-    /**
-     * Set the value of quartier
-     *
-     * @return  self
-     */ 
-    public function setQuartier($quartier)
-    {
-        $this->quartier = $quartier;
-
-        return $this;
-    }
-
     public function getAssignedTo(): ?Referent
     {
         return $this->assignedTo;
@@ -259,5 +239,17 @@ class Donation
     public function __toString()
     {
         return $this->person;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(?District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
     }
 }

@@ -94,9 +94,20 @@ class Referent implements UserInterface
      */
     private $donations;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\District", inversedBy="referents")
+     */
+    private $district;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Collect", mappedBy="assignedTo")
+     */
+    private $collects;
+
     public function __construct()
     {
         $this->donations = new ArrayCollection();
+        $this->collects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -328,6 +339,49 @@ class Referent implements UserInterface
     public function setIsValidated($isValidated)
     {
         $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?District
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(?District $district): self
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Collect[]
+     */
+    public function getCollects(): Collection
+    {
+        return $this->collects;
+    }
+
+    public function addCollect(Collect $collect): self
+    {
+        if (!$this->collects->contains($collect)) {
+            $this->collects[] = $collect;
+            $collect->setAssignedTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollect(Collect $collect): self
+    {
+        if ($this->collects->contains($collect)) {
+            $this->collects->removeElement($collect);
+            // set the owning side to null (unless already changed)
+            if ($collect->getAssignedTo() === $this) {
+                $collect->setAssignedTo(null);
+            }
+        }
 
         return $this;
     }

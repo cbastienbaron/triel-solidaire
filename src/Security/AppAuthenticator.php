@@ -40,7 +40,9 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     public function supports(Request $request)
     {
         return 'app_login' === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+            && $request->isMethod('POST')
+            && !$request->request->has('registration_form') 
+            ;
     }
 
     public function getCredentials(Request $request)
@@ -67,9 +69,9 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         $user = $this->entityManager->getRepository(Referent::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (!$user) {
+        if (!$user || !$user->isValidated()) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('email could not be found.');
+            throw new CustomUserMessageAuthenticationException('email non trouvé ou compte non encore activé');
         }
 
         return $user;
@@ -94,7 +96,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('app.home'));
+        return new RedirectResponse($this->urlGenerator->generate('app.collect.index'));
     }
 
     protected function getLoginUrl()

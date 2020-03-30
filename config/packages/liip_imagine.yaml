@@ -7,12 +7,16 @@ liip_imagine:
         slider:
             quality: 75
             filters:
-                fixed: { width: 700, height: 300 }
+                fixed: { width: 800, height: 400 }
         default:
             quality: 75
             filters:
                 fixed: { width: 300, height: 300 }
         referent:
+            quality: 75
+            filters:
+                fixed: { width: 130, height: 130 }
+        thanks:
             quality: 75
             filters:
                 fixed: { width: 130, height: 130 }

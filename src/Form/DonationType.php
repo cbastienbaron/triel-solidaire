@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+
+use App\Entity\District;
 use App\Entity\Donation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,11 +45,12 @@ class DonationType extends AbstractType
             )
 
             ->add(
-                'quartier',
-                TextType::class,
+                'district',
+                EntityType::class,
                 [
-                    'label'   => 'Nom de votre quartier',
-                    'required' => false,
+                    'label'    => 'Votre Quartier',
+                    'class'    => District::class,
+                    'choice_label' => 'name',
                 ]
             )
 

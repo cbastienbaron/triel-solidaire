@@ -5,8 +5,19 @@
 {% block body %}
 
 <div class="solidarity-wrapper">
-
-  <p style="text-align:center">Merci merci !</p>  
+  
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h2 class="display-4">Liste des activités proposées</h2>
+      <ul class="solidarity-activities-list-tags">
+        {% for tag in tags %}
+          <li>
+            <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 
   <ul class="list-group list-group-flush solidarity-activities-list">
     {% for activity in activities %}
@@ -18,7 +29,7 @@
             {{ activity.description }} 
             <br>
             {% for tag in activity.tags %}
-              <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-info" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
+              <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
             {% endfor %}
         </li>
     {% endfor %}
