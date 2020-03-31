@@ -186,6 +186,10 @@ class Collect
 
     public function __toString()
     {
-        return $this->startAt->format('d/m/Y'). ' ' . $this->district->getName();
+        if($this->startAt && $this->district) {
+            return $this->startAt->format('d/m/Y'). ' ' . $this->district->getName();
+        }
+        
+        return '';
     }
 }

@@ -99,9 +99,15 @@ class Referent implements UserInterface
      */
     private $collects;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="referent")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->collects = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -343,6 +349,37 @@ class Referent implements UserInterface
             // set the owning side to null (unless already changed)
             if ($collect->getAssignedTo() === $this) {
                 $collect->setAssignedTo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setReferent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getReferent() === $this) {
+                $contact->setReferent(null);
             }
         }
 

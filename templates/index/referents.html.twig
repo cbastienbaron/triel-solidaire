@@ -26,18 +26,21 @@
 
             {{ referent.firstname }} {{ referent.lastname }}
 
-            {% if referent.phone %}
+            {# {% if referent.phone %}
               <br>Télephone : <a href="tel:{{ referent.phone }}">{{ referent.phone }}</a> 
             {% endif %}
 
             {% if referent.email %}
               <br>Email : <a href="mailto:{{ referent.email }}">{{ referent.email }}</a>
-            {% endif %}
+            {% endif %} #}
 
             {% if referent.district %}
               <br>Quartier : <a href="{{ path('app.district', {'slug' : referent.district.slug })}}">{{ referent.district }}</a>
             {% endif %}
         </li>
+
+
+        
     {% endfor %}    
   </ul>
 

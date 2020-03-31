@@ -40,6 +40,11 @@ class Contact
      */
     private $subject;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Referent", inversedBy="contacts")
+     */
+    private $referent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +94,18 @@ class Contact
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getReferent(): ?Referent
+    {
+        return $this->referent;
+    }
+
+    public function setReferent(?Referent $referent): self
+    {
+        $this->referent = $referent;
 
         return $this;
     }

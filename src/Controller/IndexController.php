@@ -17,6 +17,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Notification\Notification;
 
 class IndexController extends AbstractController
 {
@@ -175,7 +181,7 @@ class IndexController extends AbstractController
      * @Route("/contact", name="app.contact")
      * @Route("/contact/confirmation", name="app.contact.confirmation")
      */
-    public function contact(Request $request)
+    public function contact(Request $request, NotifierInterface $notifier)
     {
         $contact = new Contact();
 
@@ -189,6 +195,30 @@ class IndexController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($contact);
             $manager->flush();
+
+            $notification = (new Notification('New Invoice'))
+            ->content('You got a new invoice for 15 EUR.')
+            ->importance(Notification::IMPORTANCE_HIGH);
+
+            $notifier->send($notification, new Recipient('baronsebastien@gmail.com'));
+              /*  
+            $email = (new NotificationEmail())
+                ->from('baronsebastien@gmail.com')
+                ->to('baronsebastien@gmail.com')
+                ->subject('My first notification email via Symfony')
+                ->content(<<<EOF
+                    There is a **problem** on your website, you should investigate it
+                    right now. Or just wait, the problem might solves itself automatically,
+                    we never know.
+                    EOF
+                )
+                ->action('More info?', 'https://example.com/')
+                ->importance(NotificationEmail::IMPORTANCE_HIGH)
+            ;
+
+            $transport = new EsmtpTransport('smtp.free.fr');
+            $mailer = new Mailer($transport);
+            $mailer->send($email);*/
 
             // do anything else you need here, like send an email
             return $this->redirectToRoute('app.contact.confirmation');

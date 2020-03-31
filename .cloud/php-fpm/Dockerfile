@@ -1,12 +1,14 @@
 FROM alpine:edge
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+# RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 #RUN apk update && apk upgrade && \
 #    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
 #    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
 #    apk add --no-cache \
 #      chromium@edge \
 #      nss@edge
+
 
 RUN apk add --update \
     openssl \
@@ -37,6 +39,10 @@ RUN apk add --update \
     php7-session \
     php7-simplexml \
     php7-xmlwriter \
+    # icu-libs-dev \
+    # libxslt-dev \
+    # libgcrypt-dev \
+    # php7-xsl \
     gearmand \
     #libressl2.7-libcrypto \
     imagemagick \
@@ -59,15 +65,15 @@ RUN apk add --update \
     supervisor
 
 
-RUN cd /opt && git clone https://github.com/swoole/swoole-src.git && \
-    cd swoole-src && \
-    git checkout v4.4.x && \
-    phpize  && \
-    ./configure --with-openssl-dir --enable-openssl && \
-    make && make install
+# RUN cd /opt && git clone https://github.com/swoole/swoole-src.git && \
+#     cd swoole-src && \
+#     git checkout v4.4.x && \
+#     phpize  && \
+#     ./configure --with-openssl-dir --enable-openssl && \
+#     make && make install
 
-RUN touch /etc/php7/conf.d/swoole.ini && \
-    echo 'extension=swoole.so' > /etc/php7/conf.d/swoole.ini
+# RUN touch /etc/php7/conf.d/swoole.ini && \
+#     echo 'extension=swoole.so' > /etc/php7/conf.d/swoole.ini
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 #ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
