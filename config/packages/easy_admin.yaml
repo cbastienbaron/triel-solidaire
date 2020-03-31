@@ -1,5 +1,5 @@
 easy_admin:
-        site_name: '<img src="https://www.triel-sur-seine.fr/images/GBI_TRIEL/logo.png" /> triel solidarité'
+        site_name: '<img src="/logo.jpeg" style="max-width:160px;"/> triel solidarité'
         list:
             actions: ['edit', 'search', 'show', 'delete']
         edit:

@@ -12,14 +12,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Mailer\MailerInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function login(
+        Request $request, 
+        AuthenticationUtils $authenticationUtils, 
+        UserPasswordEncoderInterface $passwordEncoder, 
+        MailerInterface $mailer, 
+        string $notificationFrom, 
+        string $notificationToAdmin
+        ): Response
     {
         $user = new Referent();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -41,9 +50,15 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
-
+            $notification = (new NotificationEmail())
+                ->subject('Nouvelle inscription référent à valider')
+                ->to($notificationToAdmin)
+                ->from($notificationFrom)
+                ->content('Nouvelle inscription référent à valider')
+                ->importance('triel-solidarite.org')
+                ->action('Plus d\'info ?', 'https://triel-solidarite.org/admin')
+            ;
+            $mailer->send($notification);
 
             return $this->redirectToRoute('app.security.register.success');
         }
