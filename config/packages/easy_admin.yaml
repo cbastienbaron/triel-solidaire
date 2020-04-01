@@ -8,22 +8,6 @@ easy_admin:
     
         entities:
             # List the entity class name you want to manage
-            Content:
-                class: App\Entity\Home
-                show:
-                    fields:
-                        - 'id'
-                        - 'name'
-                        - 'content'
-                list:
-                    fields:
-                        - 'id'
-                        - 'name'
-                        - 'content'
-                form:
-                    fields:
-                        - 'name'
-                        - 'content'
             Collect:
                 class: App\Entity\Collect
                 show:
@@ -286,8 +270,7 @@ easy_admin:
                 js:
                     - 'bundles/easyadmin/bootstrap-all.js'
             menu:
-                - { label: 'Gestion contenu/contact' }
-                - { entity: 'Content', label: 'Contenu' }
+                - { label: 'Gestion contact' }
                 - { entity: 'Contact', label: 'Formulaire de contact' }
                 
                 - { label: 'Donations' }

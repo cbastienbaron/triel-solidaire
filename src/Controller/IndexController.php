@@ -7,14 +7,12 @@ use App\Repository\ThanksRepository;
 use App\Repository\RecipientRepository;
 use App\Repository\ReferentRepository;
 use App\Repository\TagRepository;
-use App\Repository\HomeRepository;
 use App\Repository\CollectRepository;
 use App\Entity\Tag;
 use App\Entity\Contact;
 use App\Entity\Activity;
 use App\Entity\District;
 use App\Entity\Thanks;
-use App\Entity\Home;
 use App\Entity\Recipient;
 use App\Entity\Referent;
 use App\Entity\Collect;
@@ -65,7 +63,6 @@ class IndexController extends AbstractController
         $this->referentRepository  = $em->getRepository(Referent::class);//$referentRepository;
         $this->tagRepository       = $em->getRepository(Tag::class);//$tagRepository;
         $this->activityRepository  = $em->getRepository(Activity::class);//$activityRepository;
-        $this->homeRepository      = $em->getRepository(Home::class);//$homeRepository;
         $this->collectRepository   = $em->getRepository(Collect::class);//$collectRepository;
         $this->paginator           = $paginator;
     }
@@ -76,15 +73,16 @@ class IndexController extends AbstractController
     public function index()
     {
 
-        
+        dump($this->thanksRepository->findForHome(true, 1));
+        dump($this->thanksRepository->findForHome());
         return 
             $this
                 ->render(
                     'index/index.html.twig', 
                     [
-                        'thanks' => $this->thanksRepository->findForSliderHome(),
-                        'abstract' => $this->homeRepository->findOneBy(['name' => 'abstract']),
-                        'collects' => $this->collectRepository->findLastCollect()
+                        'thanks'        => $this->thanksRepository->findForHome(),
+                        'thankMercant'  => $this->thanksRepository->findForHome(true, 1),
+                        'collects'      => $this->collectRepository->findLastCollect()
                     ]
                 )
             ;

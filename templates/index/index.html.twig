@@ -19,40 +19,58 @@
 
 <div class="solidarity-wrapper">
 
-  <p style="text-align:center">Merci merci !</p>  
-
-  {% if thanks %}
-    <div class="slider">
-
-      {% for thank in thanks %}
-        
-          <div>
-              <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('slider') }}" title="{{ thank.title }}">
+  {% if thanks and thankMercant %}
+    {# <div class="jumbotron jumbotron-fluid"> #}
+      {# <div class="container"> #}
+          <h2 class="display-6"><i class="fa fa-heart" aria-hidden="true"></i> Remerciements</h2>
+          <div class="slider">
+              <div class="column">
+              {% for thankMercant in thankMercant %}
+                <img src="{{ vich_uploader_asset(thankMercant, 'mainFile') | imagine_filter('slider') }}" title="{{ thankMercant.title }}">
+                <div class="solidarity-thanks-caption">
+                  <h3>{{ thankMercant.title }}</h3>
+                  <p>{{ thankMercant.description }}</p>
+                  {% if thankMercant.url %}
+                    <p><a href="{{ thankMercant.url }}" title="{{ thankMercant.title }}" target="_blank">{{ thankMercant.url }}</a></p>
+                  {% endif %}  
+                </div>
+              {% endfor %}
+              </div>
+              <div class="column-wrapper">
+                {% for thank in thanks %}
+                  <div class="column">
+                    <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('slider_small') }}" title="{{ thank.title }}">
+                  </div>
+              {% endfor %}    
+              </div>
           </div>
-        
-      {% endfor %}
-
-    </div>
+        {# </div> #}
+    {# </div> #}
+  
   {% endif %}
 
-  {% if abstract %}
-    <p class="solidarity-hightlight">
-      {{ abstract.content|raw }}
-    </p>
-  {% endif %}
 
 
   <div class="jumbotron jumbotron-fluid">
       <div class="container">
           <h2 class="display-4">Collectes à venir</h2>
-          <ul class="solidarity-collects">
+          <table class="solidarity-collects">
             {% for collect in collects %}
-                <li>
-                  Quartier <a href="{{ path('app.district', {'slug' : collect.district.slug })}}">{{ collect.district.name}}</a> - Début {{ collect.startAt|date('d/m/Y H:i')}}  
-                  <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don</a>
-                </li>
+                
+                <tr>
+                  <td>
+                    Quartier <a href="{{ path('app.district', {'slug' : collect.district.slug })}}">{{ collect.district.name}}</a> 
+                  </td>
+                  <td class="d-none d-md-table-cell d-lg-table-cell">
+                    Début {{ collect.startAt|date('d/m/Y H:i')}}
+                  </td>  
+                  <td>
+                    <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don <i class="fa fa-heart" aria-hidden="true"></i> </a>
+                  <td>    
+                  
+                <tr>
             {% endfor %}
-          </ul>
+          </table>
       </div>
   </div>
   

@@ -20,18 +20,20 @@ class ThanksRepository extends ServiceEntityRepository
     }
 
 
-    public function findForSliderHome()
+    public function findForHome($isMerchant = false, $maxResults = 2)
     {
         return 
             $this
                 ->createQueryBuilder('t')
                 ->andWhere('t.isEnabled = 1')
                 ->andWhere('t.file IS NOT NULL')
+                ->andWhere('t.isMerchant = :isMerchant')
+                ->setParameter('isMerchant', $isMerchant)
                 ->orderBy('t.createdAt', 'DESC')
-                ->setMaxResults(10)
+                ->setMaxResults($maxResults)
                 ->getQuery()
                 ->getResult()
-            ;   
+            ;
     }
 
     public function findEnabled()

@@ -2,8 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="{{ path('app.index') }}">
-    <img src="/logo.jpeg">
-    Triel solidarité
+        <img src="/logo.jpeg" alt="Triel solidarité">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -16,7 +15,9 @@
             </li> 
             #}
             <li class="nav-item {{ current_path == 'app.donate' or current_path == 'app.donate.dispatch' ? 'active' : '' }}">
-                <a class="nav-link" href="{{ path('app.donate') }}">Je fais un don</a>
+                <a class="nav-link" href="{{ path('app.donate') }}">
+                    Je fais un don
+                </a>
             </li>
             <li class="nav-item {{ current_path == 'app.referents' or current_path == 'app_login' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ path('app.referents') }}">Référents de quartier </a>
@@ -53,16 +54,18 @@
 </nav>
 
 
-<h1>
-    Triel solidarité
-    Réseau d'entraide de proximité.
-</h1>
-
-
 <div class="header-share">
-    <div class="hightlight">
-        Je partage l'initiative
-    </div>
+
+    <h1>
+        <i class="fa fa-bullhorn" aria-hidden="true"></i>
+        Triel solidarité
+        Réseau d'entraide de proximité.
+    </h1>
+
+    <p class="solidarity-hightlight">
+      La crise sanitaire oblige les habitants à rester chez eux, afin de limiter la propagation du virus. Certaines personnes sont en première ligne (notamment le personnel hospitalier) et d'autres sont à protéger en priorité.
+    </p>
+
     <div class="">
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ url('app.index')|url_encode }}" title="Partager sur Facebook" target="_blank" rel="noreferrer noopener">
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">

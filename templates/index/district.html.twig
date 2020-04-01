@@ -17,7 +17,7 @@
             {% if referent.file %}
               <img src="{{ vich_uploader_asset(referent, 'mainFile') | imagine_filter('referent') }}" title="{{ referent.firstname ~ referent.lastname }}">
             {% else %}            
-              <img src="/default.png" title="{{ referent.firstname ~ referent.lastname }}">
+              <img src="/logo.jpeg" title="{{ referent.firstname ~ referent.lastname }}">
             {% endif %}
 
             {{ referent.firstname }} {{ referent.lastname }}
@@ -39,7 +39,7 @@
   {% for collect in district.collects %}
       <li>
         Quartier <a href="{{ path('app.district', {'slug' : collect.district.slug })}}">{{ collect.district.name}}</a> - Début {{ collect.startAt|date('d/m/Y H:i')}}  
-        <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don</a>
+        <a class="btn btn-primary" href="{{ path('app.donate') }}">je fais un don <i class="fa fa-heart" aria-hidden="true"></i> </a>
       </li>
   {% endfor %}
   </ul>

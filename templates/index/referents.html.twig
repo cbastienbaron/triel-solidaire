@@ -21,7 +21,7 @@
             {% if referent.file %}
               <img src="{{ vich_uploader_asset(referent, 'mainFile') | imagine_filter('referent') }}" title="{{ referent.firstname ~ referent.lastname }}">
             {% else %}            
-              <img src="/default.png" title="{{ referent.firstname ~ referent.lastname }}">
+              <img src="/logo.jpeg" title="{{ referent.firstname ~ referent.lastname }}">
             {% endif %}
 
             {{ referent.firstname }} {{ referent.lastname }}

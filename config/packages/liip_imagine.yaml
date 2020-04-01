@@ -8,6 +8,11 @@ liip_imagine:
             quality: 75
             filters:
                 fixed: { width: 800, height: 400 }
+        slider_small:
+            quality: 75
+            filters:
+                fixed: { width: 400, height: 200 }
+        
         default:
             quality: 75
             filters:
