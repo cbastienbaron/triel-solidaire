@@ -51,6 +51,18 @@ h1 {
     border-bottom: 4px solid #ff8d00;
 }
 
+.badge-success {
+    background-color: #ff8d00;
+}
+
+a.badge-success:hover, a.badge-success:focus {
+    background-color: #d27a0d;
+}
+
+a.badge-success.active {
+    background-color: #d27a0d;
+}
+
 .navbar-brand img {
     border-radius: 10px;
     max-width: 160px;
@@ -252,3 +264,57 @@ body {
     }
 
  }
+ 
+
+// table { 
+//     border-collapse: collapse;
+//     border-spacing: 0px;
+    
+// }
+
+// table, th, td { 
+//     border: 1px solid black; 
+// }
+
+caption { 
+    caption-side: top;
+    text-align: left;
+    color: #fff;
+} 
+
+.table-striped {
+    color: #fff;
+}
+
+.activity-merchant {
+    a {
+        color:#fff;
+        &:hover{
+            color:#fff;
+        }
+    }
+}
+
+//  TYPE_OF_MISC_FOOD_SHOP
+.activity-merchant-1 {
+    background: orange;
+    color: #fff;
+}
+
+// TYPE_OF_HOME_DELIVERY
+    .activity-merchant-2 {
+        background: orange;
+        color: #fff;
+    }
+
+//  TYPE_OF_PHARMACY
+    .activity-merchant-3 {
+    background: green;
+    color: #fff;
+}
+
+// TYPE_OF_BOOKSTORE
+.activity-merchant-4 {
+    background: $blue;
+    color: #fff;
+}    

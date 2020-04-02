@@ -90,19 +90,55 @@ easy_admin:
                         - 'description'
                         - 'url'
                         - 'tags'
+                        - 'isMerchant'
+                        - 'address'
+                        - 'phone'
+                        - 'isShipping'
+                        - 'isOrderable'                        
+                        - { property: 'openingTimeMon', label: 'Horaire ouverture lundi' }
+                        - { property: 'openingTimeTue', label: 'Horaire ouverture mardi' }
+                        - { property: 'openingTimeWed', label: 'Horaire ouverture mercredi' }
+                        - { property: 'openingTimeThu', label: 'Horaire ouverture jeudi' }
+                        - { property: 'openingTimeFri', label: 'Horaire ouverture vendredi' }
+                        - { property: 'openingTimeSat', label: 'Horaire ouverture samedi' }
+                        - { property: 'openingTimeSun', label: 'Horaire ouverture dimanche' }
+
                 list:
                     fields:
                         - 'id'
                         - 'name'
                         - 'description'
                         - 'url'
+                        - 'isMerchant'
                         - 'tags'
                 form:
                     fields:
                         - 'name'
                         - 'description'
                         - 'url'
-                        - 'tags'                        
+                        - 'tags'
+                        - 'isMerchant'
+                        - 'address'
+                        - 'phone'
+                        - 'isShipping'
+                        - 'isOrderable'
+                        -   property: 'type'
+                            type: 'choice'
+                            type_options:
+                                mapped: true
+                                expanded: false
+                                multiple: false
+                                choices: { 'COMMERCES ALIMENTAIRES DIVERS': 1, 'LIVRAISON A DOMICILE': 2, 'PHARMACIES': 3, 'LIBRAIRIES': 4 }                     
+
+                        - { property: 'openingTimeMon', label: 'Horaire ouverture lundi' }
+                        - { property: 'openingTimeTue', label: 'Horaire ouverture mardi' }
+                        - { property: 'openingTimeWed', label: 'Horaire ouverture mercredi' }
+                        - { property: 'openingTimeThu', label: 'Horaire ouverture jeudi' }
+                        - { property: 'openingTimeFri', label: 'Horaire ouverture vendredi' }
+                        - { property: 'openingTimeSat', label: 'Horaire ouverture samedi' }
+                        - { property: 'openingTimeSun', label: 'Horaire ouverture dimanche' }
+
+
             Thanks:
                 class: App\Entity\Thanks
                 show:

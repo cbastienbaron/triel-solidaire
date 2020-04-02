@@ -72,9 +72,6 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-
-        dump($this->thanksRepository->findForHome(true, 1));
-        dump($this->thanksRepository->findForHome());
         return 
             $this
                 ->render(
@@ -167,6 +164,7 @@ class IndexController extends AbstractController
             $this
                 ->render('index/activities.html.twig', [
                     'activities' => $activities,
+                    'currentTag' => $tag,
                     'tags'       => $this->tagRepository->findAll(),
                 ])
             ;

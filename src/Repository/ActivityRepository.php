@@ -28,7 +28,8 @@ class ActivityRepository extends ServiceEntityRepository
                 ->join('a.tags', 'tags')
                 ->where('tags.id = :tag')
                 ->setParameter('tag', $tag)
-                //->orderBy('a.id', 'ASC')
+                ->orderBy('a.isMerchant', 'DESC')
+                ->addOrderBy('a.name', 'ASC')
                 //->setMaxResults(10)
                 ->getQuery()
                 //->getResult()
@@ -40,6 +41,8 @@ class ActivityRepository extends ServiceEntityRepository
         return 
             $this
                 ->createQueryBuilder('a')
+                ->orderBy('a.isMerchant', 'DESC')
+                ->addOrderBy('a.name', 'ASC')
                 //->orderBy('a.id', 'ASC')
                 //->setMaxResults(10)
                 ->getQuery()

@@ -8,11 +8,11 @@
   
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h2 class="display-4">Liste des activités proposées</h2>
+      <h2 class="display-4">Liste des infos pratiques</h2>
       <ul class="solidarity-activities-list-tags">
         {% for tag in tags %}
           <li>
-            <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
+            <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success {{ tag == currentTag ? "active":""}}" title="Retrouvez toutes les infos {{ tag.name}}">{{ tag.name}}</a>
           </li>
         {% endfor %}
       </ul>
@@ -21,23 +21,56 @@
 
   <ul class="list-group list-group-flush solidarity-activities-list">
     {% for activity in activities %}
-        <li class="list-group-item">
+        <li class="list-group-item {{activity.isMerchant ? 'activity-merchant activity-merchant-'~activity.type : ''}}">
+            {% if activity.longTypeOf %}
+              <span class="badge badge-secondary">{{ activity.longTypeOf }}</span>
+              <br>  
+            {% endif %}
             {{ activity.name }} 
             <br>
-            <a href="{{ activity.url }}" target="_blank">{{ activity.url }}</a>
-            <br>
+            {% if activity.url %}
+              <a href="{{ activity.url }}" target="_blank">{{ activity.url }}</a>
+              <br>
+            {% endif %}  
+            
             {{ activity.description }} 
             <br>
+
+            {% if activity.isMerchant %}
+              
+              <br>
+
+              {{ activity.address }}
+
+              <br>
+              <a href="tel:{{ activity.phone }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ activity.phone }}</a>
+              <br>
+
+              <i class="fa fa-truck" aria-hidden="true"></i> Livraison : {{ activity.isShipping ? 'oui' : 'non' }}
+              <br>
+              <i class="fa fa-credit-card" aria-hidden="true"></i> Commande : {{ activity.isOrderable ? 'oui' : 'on' }}
+
+              <hr>
+              <table class="table table-striped table-hover">
+                <caption>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i> Horaires Ouverture
+                </caption>
+                <tr><td>Lundi</td><td>{{ activity.openingTimeMon ? activity.openingTimeMon : 'Fermé' }}</td></tr>
+                <tr><td>Mardi</td><td>{{ activity.openingTimeTue ? activity.openingTimeTue : 'Fermé' }}</td></tr>
+                <tr><td>Mercredi</td><td>{{ activity.openingTimeWed ? activity.openingTimeWed : 'Fermé' }}</td></tr>
+                <tr><td>Jeudi</td><td>{{ activity.openingTimeThu ? activity.openingTimeThu : 'Fermé' }}</td></tr>
+                <tr><td>Vendredi</td><td>{{ activity.openingTimeFri ? activity.openingTimeFri : 'Fermé' }}</td></tr>
+                <tr><td>Samedi</td><td>{{ activity.openingTimeSat ? activity.openingTimeSat : 'Fermé' }}</td></tr>
+                <tr><td>Dimanche</td><td>{{ activity.openingTimeSun ? activity.openingTimeSun : 'Fermé' }}</td></tr>
+              </table>
+              
+            {% endif %}
+
             {% for tag in activity.tags %}
-              <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success" title="Retrouvez toutes les activités {{ tag.name}}">{{ tag.name}}</a>
+              <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success" title="Retrouvez toutes les infos {{ tag.name}}">{{ tag.name}}</a>
             {% endfor %}
         </li>
     {% endfor %}
       
-  </ul>
-  <div class="navigation">
-      {{ knp_pagination_render(activities) }}
-  </div>
-
-</div>
+ </ul>
 {% endblock %}
