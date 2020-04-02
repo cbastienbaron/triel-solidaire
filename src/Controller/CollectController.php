@@ -38,17 +38,65 @@ class CollectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="app.collect.view")
-     */
-    // public function view(Request $request, Collect $collect)
-    // {
-    //     // check collect user
 
-    //     return $this->render('donate/success.html.twig', [
-    //         'recipient' => $recipient,
-    //     ]);
-    // }
+    /**
+     * @Route("/collected/{id}", name="app.collect.collected")
+     */
+    public function collected(Request $request, Collect $collect)
+    {
+        // check collect user
+        if ($collect->getAssignedTo() != $this->getUser()) {
+            throw new \RuntimeException('invalid user');
+        }
+        
+        $collect
+            ->setIsCollected(true)
+            ->setCollectedAt(new \DateTime('now'))
+            ;
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($collect);
+        $manager->flush();
+
+        return $this->redirectToRoute('app.collect.index');
+    }
+
+    /**
+     * @Route("/donation/collected/{id}", name="app.collect.donation.collected")
+     */
+    public function donationCollected(Request $request, Donation $donation)
+    {
+        // check collect user
+        if ($donation->getCollect()->getAssignedTo() != $this->getUser()) {
+            throw new \RuntimeException('invalid user');
+        }
+        
+        $donation
+            ->setIsCollected(true)
+            ->setCollectedAt(new \DateTime('now'))
+            ;
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($donation);
+        $manager->flush();
+
+        return $this->redirectToRoute('app.collect.index');
+    }
+
+    /**
+     * @Route("/view/{id}", name="app.collect.view")
+     */
+    public function view(Request $request, Collect $collect)
+    {
+        // check collect user
+        if ($collect->getAssignedTo() != $this->getUser()) {
+            throw new \RuntimeException('invalid user');
+        }
+
+        return $this->render('collect/view.html.twig', [
+            'collect' => $collect,
+            'user'    => $this->getUser(),
+        ]);
+    }
 
     /**
      * @Route("/creation", name="app.collect.create")

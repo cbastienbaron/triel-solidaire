@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="solidarity-wrapper">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h2 class="display-4">Liste de vos collectes</h2>
+      <p class="lead">
+        Vous souhaitez créer une collecte pour le quartier "{{ user.district.name }}" ?
+      </p>
+      <a href="{{ path('app.collect.create') }}" class="btn btn-primary">Je créer une collecte</a>
+    </div>
+  </div>
+
+  <ul class="list-group list-group-flush solidarity-referents-list">
+    
+        <li class="list-group-item">
+
+            <i class="fa fa-clock-o" aria-hidden="true"></i> Collecte Début : {{ collect.startAt|date("d/m/Y H:m:i") }} - Fin {{ collect.endAt|date("d/m/Y H:m:i") }}
+            
+            <br/>  
+            Status : {% if collect.isCollected %} <span class="badge badge-success">Collecté</span> {% else %} <span class="badge badge-info">En cours</span> {% endif %}
+            <h3>Liste des donations à collecter</h3>
+            <ul class="solidarity-collect-list">
+              {% for donation in collect.donations %}
+                <li>
+                    <table class="table table-striped table-dark table-hover">
+                  
+                      <tr><td><strong>Donateur :</strong></td><td> {{ donation.person }}</td></tr>
+                      <tr><td><strong>Addresse :</strong></td><td> {% if donation.adress %}{{donation.adress}}{% else %}n.c.{% endif %}</td></tr>              
+                      <tr><td><strong>Téléphone :</strong></td><td>{% if donation.phone %}<a href="tel:{{donation.phone}}">{{donation.phone}}</a>{% else %}n.c.{% endif %}</td></tr>             
+                      <tr><td><strong>Email :</strong></td><td>{% if donation.phone %}<a href="mailto:{{donation.email}}">{{donation.email}}</a>{% else %}n.c.{% endif %}</td></tr>
+                      <tr><td><strong>Infos :</strong></td><td> {% if donation.additionalInfo %}{{donation.additionalInfo}}{% else %}n.c.{% endif %}</td></tr>
+                      <tr>
+                        <td><strong>Collecté :</strong></td>
+                        <td>
+                        
+                          
+                          {% if donation.isCollected %}
+                            Oui
+                          {% else %} 
+                            Non  - <a href="{{path('app.collect.donation.collected', {'id' : donation.id})}}" class="btn btn-warning"><i class="fa fa-paper-plane" aria-hidden="true"></i> j'ai collecté la donation</a> 
+                           {% endif %}
+                        </td>
+                      </tr>
+                      <tr><td><strong>Destinataire de la collecte :</strong></td><td> {{ donation.recipient }}</td></tr>
+                      <tr><td><strong>Type de dons :</strong></td><td> 
+                                          
+                      {% for typeOfDonation in  donation.typeOfDonations %}
+                          
+                          {{ typeOfDonation.name }} <br/>
+
+                      {% endfor %}
+                      </td></tr>
+                    </table>
+
+                </li>
+              {% endfor %}
+            </ul>  
+            
+            {% if not collect.isCollected %}
+              <a href="{{path('app.collect.collected', {'id' : collect.id})}}" class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> j'ai terminé la collecte</a>
+            {% endif %}
+        </li>
+
+  </ul>
+
+</div>
+{% endblock %}

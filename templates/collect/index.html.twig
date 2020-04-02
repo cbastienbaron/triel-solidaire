@@ -16,42 +16,13 @@
   <ul class="list-group list-group-flush solidarity-referents-list">
     {% for collect in collects %}
         <li class="list-group-item">
-
-            Début : {{ collect.startAt|date("d/m/Y H:m:i") }} - Fin {{ collect.endAt|date("d/m/Y H:m:i") }}
-            <br/>  
-            Liste des donations à collecter : 
-            <ul>
-              {% for donation in collect.donations %}
-                <li>
-                    <strong>Donateur :</strong> {{ donation.person }} <br/>
-                    <strong>Addresse :</strong> {{ donation.adress }} <br/>                  
-                    <strong>Téléphone :</strong>{{ donation.phone }} <br/>                  
-                    <strong>Email :</strong>{{ donation.email }} <br/>
-                    <strong>Infos :</strong> {{ donation.additionalInfo }} <br/>
-                    <strong>Collecté :</strong> {{ donation.isCollected ? 'oui': 'non'}} <br/>
-                    <strong>Destinataire de la collecte :</strong> {{ donation.recipient }} <br/>
-                    <strong>Type de dons :</strong> 
-                                        
-                    {% for typeOfDonation in  donation.typeOfDonations %}
-                        
-                        {{ typeOfDonation.name }} <br/>
-
-                    {% endfor %}                      
-
-
-                </li>
-              {% endfor %}
-            </ul>  
-            
-            
-            
-            {# {{ referent.firstname }} {{ referent.lastname }} #}
+            {% if collect.isCollected %} <span class="badge badge-success">Collecté</span> {% else %} <span class="badge badge-info">En cours</span> {% endif %} : <i class="fa fa-clock-o" aria-hidden="true"></i> Collecte Début : {{ collect.startAt|date("d/m/Y H:m:i") }} - Fin {{ collect.endAt|date("d/m/Y H:m:i") }}  
+            <br>
+            <a href="{{ path('app.collect.view', {'id' : collect.id})}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Voir la collecte </a>
+            {{ collect.donations|length }} donation(s) à collecter
         </li>
     {% endfor %}
   </ul>
 
-  {# <div class="navigation">
-      {{ knp_pagination_render(referents) }}
-  </div> #}
 </div>
 {% endblock %}

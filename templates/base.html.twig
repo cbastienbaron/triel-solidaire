@@ -4,12 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Triel solidarité Réseau d'entraide de proximité. {% endblock %}</title>
-        <meta name="description" content="{% block meta_description 'Face à l’épidémie de Covid-19, certains d\'entre nous sont en première ligne de la lutte pour sauver des vies et assurer les fonctions vitales de notre pays.' %}" />
+        <meta name="description" content="{% block meta_description ' Ce site a été créé pour faciliter le flux de vos généreux dons. C’est aussi un espace de renseignements et d’échanges entre les différents besoins des habitants de Triel sur seine' %}" />
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
 
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -38,9 +37,9 @@
 
         <footer class="footer">
             {# <div class="container"> #}
-                <span class="text-muted"><a href=""><i class="fa fa-heart" aria-hidden="true"></i> 2020© - triel-solidarite.org</a></span>
-                <span class="text-muted">| <a href="/mentions-legales"><i class="fa fa-gavel" aria-hidden="true"></i> mentions légales</a></span>
-                <span class="text-muted">| <a href=""><i class="fa fa-github" aria-hidden="true"></i> code source</a></span>
+                <span class="text-muted"><a href="{{ path('app.index') }}"><i class="fa fa-heart" aria-hidden="true"></i> 2020© - triel-solidarite.org</a></span>
+                <span class="text-muted">| <a href="{{ path('app.legal') }}"><i class="fa fa-gavel" aria-hidden="true"></i> mentions légales</a></span>
+                <span class="text-muted">| <a href="https://github.com/cbastienbaron/triel-solidaire" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> code source</a></span>
             {# </div>  #}
         </footer>
     

@@ -144,8 +144,8 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/activites/{slug}", name="app.activities.by.tag")
-     * @Route("/activites/", name="app.activities")
+     * @Route("/infos-pratiques/{slug}", name="app.activities.by.tag")
+     * @Route("/infos-pratiques/", name="app.activities")
      */
     public function activities(Request $request, Tag $tag = null)
     {
@@ -223,5 +223,13 @@ class IndexController extends AbstractController
         return $this->render('index/district.html.twig', [
             'district' => $district,
         ]);
+    }
+
+    /**
+     * @Route("/mentions-legales", name="app.legal")
+     */
+    public function legal()
+    {
+        return $this->render('index/legal.html.twig');
     }
 }

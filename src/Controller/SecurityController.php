@@ -15,6 +15,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -133,4 +135,88 @@ class SecurityController extends AbstractController
             );
     }
 
+     /**
+     * @Route("/mot-de-passe-oublie", name="app.forgotten.password")
+     */
+    public function forgottenPassword(        
+    Request $request,
+    \Swift_Mailer $mailer,
+    TokenGeneratorInterface $tokenGenerator,
+    string $notificationFrom
+    ): Response
+    {
+        if ($request->isMethod('POST')) {
+
+            $email = $request->request->get('email');
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $entityManager->getRepository(Referent::class)->findOneBy(['email' => $email]);
+            /* @var $user User */
+            if ($user === null) {
+                return $this->redirectToRoute('app.index');
+            }
+
+            $token = $tokenGenerator->generateToken();
+
+            try{
+                $user->setResetToken($token);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            } catch (\Exception $e) {
+                return $this->redirectToRoute('app.index');
+            }
+
+            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $message = (new \Swift_Message('[trielsolidarite.org] Mot de passe oublié'))
+                ->setFrom($notificationFrom)
+                // ->setTo($user->getEmail())
+                ->setTo('baronsebastien@gmail.com')
+                ->setBody(
+                    "Voici le lien pour mettre à jour votre nouveau mot de passe : " . $url,
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $this->addFlash('notice', 'Mail envoyé');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('security/forgotten_password.html.twig');
+    }
+
+        /**
+     * @Route("/reset_password/{token}", name="app_reset_password")
+     */
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    {
+
+        if ($request->isMethod('POST')) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $user = $entityManager->getRepository(Referent::class)->findOneBy(['resetToken' => $token]);
+            /* @var $user User */
+
+            if ($user === null) {
+                $this->addFlash('danger', 'Token Inconnu');
+                return $this->redirectToRoute('app.index');
+            }
+
+            $user
+                ->setResetToken(null)
+                ->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')))
+            ;
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Mot de passe mis à jour');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('security/reset_password.html.twig', ['token' => $token]);
+    }
 }

@@ -71,6 +71,11 @@ class Donation
      */
     private $collect;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $collectedAt;
+
 
     public function __construct()
     {
@@ -220,6 +225,18 @@ class Donation
     public function setCollect(?Collect $collect): self
     {
         $this->collect = $collect;
+
+        return $this;
+    }
+
+    public function getCollectedAt(): ?\DateTimeInterface
+    {
+        return $this->collectedAt;
+    }
+
+    public function setCollectedAt(?\DateTimeInterface $collectedAt): self
+    {
+        $this->collectedAt = $collectedAt;
 
         return $this;
     }

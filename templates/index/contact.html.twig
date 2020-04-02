@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+<div class="solidarity-wrapper">
   {% if isConfirmation %}
     Votre demande de contact a bien été envoyée ! Merci
   {% else %}
@@ -19,4 +21,5 @@
         <button type="submit" class="btn btn-primary">Envoyer</button>
     {{ form_end(form) }}
   {% endif %}
+</div>
 {% endblock %}

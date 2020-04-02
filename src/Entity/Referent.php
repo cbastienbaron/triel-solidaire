@@ -88,6 +88,12 @@ class Referent implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isValidated = false;
+    
+    /**
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\District", inversedBy="referents")
@@ -383,6 +389,23 @@ class Referent implements UserInterface
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
         return $this;
     }
 }

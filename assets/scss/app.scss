@@ -135,6 +135,9 @@ a.badge-success.active {
 .solidarity-collects {
     text-align: left;
     width:100%;
+    li {
+        margin: 10px 0;
+    }
     tr {
         border-bottom: 1px solid grey;
         td {
@@ -163,6 +166,8 @@ body {
 
 .container-fluid {
     padding-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .footer {
@@ -282,6 +287,14 @@ caption {
     color: #fff;
 } 
 
+.table-dark {
+    color: #fff;
+    background-color: $blue;
+    font-size: 0.8em;
+    a {
+        color: #fff;
+    }
+}
 .table-striped {
     color: #fff;
 }
@@ -292,6 +305,14 @@ caption {
         &:hover{
             color:#fff;
         }
+    }
+}
+
+.solidarity-collect-list {
+    
+    padding-left: 0;
+    li {
+        list-style-type: none;
     }
 }
 
