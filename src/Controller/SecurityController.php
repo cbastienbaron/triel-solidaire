@@ -164,8 +164,8 @@ class SecurityController extends AbstractController
 
             $message = (new \Swift_Message('[trielsolidarite.org] Mot de passe oublié'))
                 ->setFrom($notificationFrom)
-                // ->setTo($user->getEmail())
-                ->setTo('baronsebastien@gmail.com')
+                ->setTo($user->getEmail())
+                //->setTo('baronsebastien@gmail.com')
                 ->setBody(
                     'Voici le lien pour mettre à jour votre nouveau mot de passe : '.$url,
                     'text/html'
