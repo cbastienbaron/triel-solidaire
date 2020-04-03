@@ -23,11 +23,11 @@ class ContactType extends AbstractType
                 'referent',
                 EntityType::class,
                 [
-                    'label'    => 'Contacter un référent',
-                    'class'    => Referent::class,
+                    'label' => 'Contacter un référent',
+                    'class' => Referent::class,
                     'required' => false,
                     'query_builder' => function (EntityRepository $er) {
-                        return 
+                        return
                             $er
                                 ->createQueryBuilder('r')
                                 ->where('r.isValidated = 1')
@@ -35,7 +35,7 @@ class ContactType extends AbstractType
                             ;
                     },
                     'choice_label' => function ($referent) {
-                        return $referent->getFirstname() . ' ' . $referent->getLastname() .' ( ' . $referent->getDistrict()->getName().' )';
+                        return $referent->getFirstname().' '.$referent->getLastname().' ( '.$referent->getDistrict()->getName().' )';
                     },
                     'placeholder' => 'Contacter un référent',
                 ]

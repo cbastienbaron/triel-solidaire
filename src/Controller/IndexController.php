@@ -2,36 +2,35 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ThanksRepository;
+use App\Entity\Activity;
+use App\Entity\Collect;
+use App\Entity\Contact;
+use App\Entity\District;
+use App\Entity\Recipient;
+use App\Entity\Referent;
+use App\Entity\Tag;
+use App\Entity\Thanks;
+use App\Form\ContactType;
+use App\Repository\ActivityRepository;
+use App\Repository\CollectRepository;
 use App\Repository\RecipientRepository;
 use App\Repository\ReferentRepository;
 use App\Repository\TagRepository;
-use App\Repository\CollectRepository;
-use App\Entity\Tag;
-use App\Entity\Contact;
-use App\Entity\Activity;
-use App\Entity\District;
-use App\Entity\Thanks;
-use App\Entity\Recipient;
-use App\Entity\Referent;
-use App\Entity\Collect;
-use App\Form\ContactType;
-use App\Repository\ActivityRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ThanksRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
-use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
-
     /** @var ThanksRepository */
     private $thanksRepository;
-    
+
     /** @var RecipientRepository */
     private $recipientRepository;
 
@@ -56,15 +55,14 @@ class IndexController extends AbstractController
     public function __construct(
         EntityManagerInterface $em,
         PaginatorInterface $paginator
-    )
-    {
-        $this->thanksRepository    = $em->getRepository(Thanks::class);//$thanksRepository;
-        $this->recipientRepository = $em->getRepository(Recipient::class);//$recipientRepository;
-        $this->referentRepository  = $em->getRepository(Referent::class);//$referentRepository;
-        $this->tagRepository       = $em->getRepository(Tag::class);//$tagRepository;
-        $this->activityRepository  = $em->getRepository(Activity::class);//$activityRepository;
-        $this->collectRepository   = $em->getRepository(Collect::class);//$collectRepository;
-        $this->paginator           = $paginator;
+    ) {
+        $this->thanksRepository = $em->getRepository(Thanks::class); //$thanksRepository;
+        $this->recipientRepository = $em->getRepository(Recipient::class); //$recipientRepository;
+        $this->referentRepository = $em->getRepository(Referent::class); //$referentRepository;
+        $this->tagRepository = $em->getRepository(Tag::class); //$tagRepository;
+        $this->activityRepository = $em->getRepository(Activity::class); //$activityRepository;
+        $this->collectRepository = $em->getRepository(Collect::class); //$collectRepository;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -72,14 +70,14 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        return 
+        return
             $this
                 ->render(
-                    'index/index.html.twig', 
+                    'index/index.html.twig',
                     [
-                        'thanks'        => $this->thanksRepository->findForHome(),
-                        'thankMercant'  => $this->thanksRepository->findForHome(true, 1),
-                        'collects'      => $this->collectRepository->findLastCollect()
+                        'thanks' => $this->thanksRepository->findForHome(),
+                        'thankMercant' => $this->thanksRepository->findForHome(true, 1),
+                        'collects' => $this->collectRepository->findLastCollect(),
                     ]
                 )
             ;
@@ -93,18 +91,18 @@ class IndexController extends AbstractController
     public function thanks(Request $request)
     {
         $route = $request->attributes->get('_route');
-        switch($route) {
+        switch ($route) {
             case 'app.thanks.merchant':
-                $qb    = $this->thanksRepository->findMerchantEnabled();
-            break; 
+                $qb = $this->thanksRepository->findMerchantEnabled();
+            break;
             case 'app.thanks.citizens':
-                $qb    = $this->thanksRepository->findCitizenEnabled();
+                $qb = $this->thanksRepository->findCitizenEnabled();
             break;
             default:
-            $qb    = $this->thanksRepository->findEnabled();
+            $qb = $this->thanksRepository->findEnabled();
             break;
         }
-     
+
         $thanks = $this->paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
@@ -132,7 +130,6 @@ class IndexController extends AbstractController
         ]);
     }
 
-    
     /**
      * @Route("/je-fais-un-don", name="app.donate")
      */
@@ -150,7 +147,7 @@ class IndexController extends AbstractController
     public function activities(Request $request, Tag $tag = null)
     {
         $qb = $this->activityRepository->findAll();
-        if($tag) {
+        if ($tag) {
             $qb = $this->activityRepository->findByTag($tag);
         }
 
@@ -160,17 +157,16 @@ class IndexController extends AbstractController
             10
         );
 
-        return 
+        return
             $this
                 ->render('index/activities.html.twig', [
                     'activities' => $activities,
                     'currentTag' => $tag,
-                    'tags'       => $this->tagRepository->findAll(),
+                    'tags' => $this->tagRepository->findAll(),
                 ])
             ;
     }
 
-        
     /**
      * @Route("/contact", name="app.contact")
      * @Route("/contact/confirmation", name="app.contact.confirmation")
@@ -200,17 +196,17 @@ class IndexController extends AbstractController
                 ->action('Plus d\'info ?', 'https://trielsolidarite.org/')
             ;
 
-            if($contact->getReferent()) {
+            if ($contact->getReferent()) {
                 //$notification->cc($contact->getReferent()->getEmail());
             }
 
             $mailer->send($notification);
-            
+
             return $this->redirectToRoute('app.contact.confirmation');
         }
 
         return $this->render('index/contact.html.twig', [
-            'form'           => $form->createView(),
+            'form' => $form->createView(),
             'isConfirmation' => 'app.contact.confirmation' == $request->attributes->get('_route'),
         ]);
     }

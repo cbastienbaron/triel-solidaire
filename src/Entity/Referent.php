@@ -6,8 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReferentRepository")
@@ -15,10 +15,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Referent implements UserInterface
 {
-
     use
         Traits\CreatedEntity;
-        
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -88,9 +87,8 @@ class Referent implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isValidated = false;
-    
+
     /**
-     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $resetToken;
@@ -292,25 +290,25 @@ class Referent implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-    
+
     public function __toString(): string
     {
         return $this->firstname.' '.$this->lastname;
     }
 
     /**
-     * Get the value of isValidated
-     */ 
+     * Get the value of isValidated.
+     */
     public function isValidated()
     {
         return $this->isValidated;
     }
 
     /**
-     * Set the value of isValidated
+     * Set the value of isValidated.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setIsValidated($isValidated)
     {
         $this->isValidated = $isValidated;
@@ -406,6 +404,7 @@ class Referent implements UserInterface
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+
         return $this;
     }
 }

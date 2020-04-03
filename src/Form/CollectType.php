@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\Collect;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class CollectType extends AbstractType
 {
@@ -15,15 +15,15 @@ class CollectType extends AbstractType
         $builder
             ->add('startAt', DateTimeType::class,
             [
-                'label'   => 'Début de la collecte',
+                'label' => 'Début de la collecte',
                 'required' => true,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ])
             ->add('endAt', DateTimeType::class,
             [
-                'label'   => 'Fin de la collecte',
+                'label' => 'Fin de la collecte',
                 'required' => true,
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ])
             ->add('infos')
             ->add('internalDescription')

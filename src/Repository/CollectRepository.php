@@ -31,7 +31,6 @@ class CollectRepository extends ServiceEntityRepository
         ;
     }
 
-
     // /**
     //  * @return Collect[] Returns an array of Collect objects
     //  */

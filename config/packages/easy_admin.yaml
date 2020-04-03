@@ -296,10 +296,6 @@ easy_admin:
                         - 'isCollected'
                         - { property: 'collect', type_options: { class: 'App\Entity\Collect' } }
 
-            UnassignedDonations:
-                class: App\Entity\Donation
-                list:
-                    dql_filter: "entity.assignedTo IS NULL"
         design:
             assets:
                 favicon: '/assets/backend/favicon.png'
@@ -315,7 +311,6 @@ easy_admin:
                 - { label: 'Donations' }
                 - { entity: 'Collect', label: 'Gestion des collectes' }
                 - { entity: 'Donation', label: 'Dons' }
-                - { entity: 'UnassignedDonations', label: 'Dons Non assignés' }
 
                 - { label: 'Referent' }
                 - { entity: 'Referent', label: 'Gestion des référents' }

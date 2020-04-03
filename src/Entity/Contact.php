@@ -9,10 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contact
 {
-
     use
         Traits\CreatedEntity;
-        
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

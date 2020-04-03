@@ -31,25 +31,25 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->entityManager    = $entityManager;
-        $this->urlGenerator     = $urlGenerator;
+        $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordEncoder  = $passwordEncoder;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function supports(Request $request)
     {
         return 'app_login' === $request->attributes->get('_route')
             && $request->isMethod('POST')
-            && !$request->request->has('registration_form') 
+            && !$request->request->has('registration_form')
             ;
     }
 
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'email'   => $request->request->get('email'),
-            'password'   => $request->request->get('password'),
+            'email' => $request->request->get('email'),
+            'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
         $request->getSession()->set(

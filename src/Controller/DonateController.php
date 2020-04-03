@@ -2,14 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Recipient;
 use App\Entity\Donation;
+use App\Entity\Recipient;
 use App\Form\DonationType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/je-fais-un-don")
@@ -20,13 +20,12 @@ class DonateController extends AbstractController
      * @Route("/{slug}", name="app.donate.dispatch")
      */
     public function dispatch(
-        Request $request, 
+        Request $request,
         Recipient $recipient,
-        MailerInterface $mailer, 
-        string $notificationFrom, 
+        MailerInterface $mailer,
+        string $notificationFrom,
         string $notificationToAdmin
-        )
-    {
+        ) {
         $donation = new Donation();
         $donation
             ->setRecipient($recipient)
@@ -38,13 +37,13 @@ class DonateController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $donation = $form->getData();
-            $manager  = $this->getDoctrine()->getManager();
+            $manager = $this->getDoctrine()->getManager();
             $manager->persist($donation);
             $manager->flush();
 
             $referent = $donation->getCollect()->getAssignedTo();
-            $to       = $notificationToAdmin;
-            if($referent && $referent->getEmail()) {
+            $to = $notificationToAdmin;
+            if ($referent && $referent->getEmail()) {
                 $to = $referent->getEmail();
             }
 
@@ -76,5 +75,4 @@ class DonateController extends AbstractController
             'recipient' => $recipient,
         ]);
     }
-
 }

@@ -4,19 +4,14 @@ namespace App\Form;
 
 use App\Entity\District;
 use App\Entity\Referent;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityRepository;
 
 class ProfilFormType extends AbstractType
 {
@@ -27,7 +22,7 @@ class ProfilFormType extends AbstractType
                 'firstname',
                 TextType::class,
                 [
-                    'label'    => 'Prénom',
+                    'label' => 'Prénom',
                     'required' => true,
                 ]
             )
@@ -36,7 +31,7 @@ class ProfilFormType extends AbstractType
                 'lastname',
                 TextType::class,
                 [
-                    'label'    => 'Nom',
+                    'label' => 'Nom',
                     'required' => true,
                 ]
             )
@@ -44,7 +39,7 @@ class ProfilFormType extends AbstractType
                 'email',
                 EmailType::class,
                 [
-                    'label'    => 'Votre email',
+                    'label' => 'Votre email',
                     'required' => true,
                 ]
             )
@@ -53,7 +48,7 @@ class ProfilFormType extends AbstractType
                 'phone',
                 TelType::class,
                 [
-                    'label'    => 'Telephone',
+                    'label' => 'Telephone',
                     'required' => false,
                 ]
             )
@@ -62,18 +57,17 @@ class ProfilFormType extends AbstractType
                 'district',
                 EntityType::class,
                 [
-                    'label'    => 'Votre Quartier',
-                    'class'    => District::class,
+                    'label' => 'Votre Quartier',
+                    'class' => District::class,
                     'choice_label' => 'name',
                 ]
             )
-
 
             ->add(
                 'address',
                 EmailType::class,
                 [
-                    'label'    => 'Adresse',
+                    'label' => 'Adresse',
                     'required' => false,
                 ]
             )
@@ -82,7 +76,7 @@ class ProfilFormType extends AbstractType
                 'infos',
                 TextareaType::class,
                 [
-                    'label'    => 'Informations complémentaire',
+                    'label' => 'Informations complémentaire',
                     'required' => false,
                 ]
             )

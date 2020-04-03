@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Repository\CollectRepository;
-use App\Entity\Recipient;
-use App\Entity\Donation;
 use App\Entity\Collect;
+use App\Entity\Donation;
 use App\Form\CollectType;
+use App\Repository\CollectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/mes-collectes")
@@ -29,15 +28,14 @@ class CollectController extends AbstractController
      */
     public function index(Request $request)
     {
-        $user     = $this->getUser();
+        $user = $this->getUser();
         $collects = $this->collectRepository->findBy(['assignedTo' => $this->getUser()], ['startAt' => 'DESC']);
 
         return $this->render('collect/index.html.twig', [
             'collects' => $collects,
-            'user'     => $user,
+            'user' => $user,
         ]);
     }
-
 
     /**
      * @Route("/collected/{id}", name="app.collect.collected")
@@ -48,7 +46,7 @@ class CollectController extends AbstractController
         if ($collect->getAssignedTo() != $this->getUser()) {
             throw new \RuntimeException('invalid user');
         }
-        
+
         $collect
             ->setIsCollected(true)
             ->setCollectedAt(new \DateTime('now'))
@@ -70,7 +68,7 @@ class CollectController extends AbstractController
         if ($donation->getCollect()->getAssignedTo() != $this->getUser()) {
             throw new \RuntimeException('invalid user');
         }
-        
+
         $donation
             ->setIsCollected(true)
             ->setCollectedAt(new \DateTime('now'))
@@ -94,7 +92,7 @@ class CollectController extends AbstractController
 
         return $this->render('collect/view.html.twig', [
             'collect' => $collect,
-            'user'    => $this->getUser(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -105,7 +103,7 @@ class CollectController extends AbstractController
     public function create(Request $request)
     {
         $isSuccess = 'app.collect.create.success' == $request->attributes->get('_route');
-        $user      = $this->getUser();
+        $user = $this->getUser();
 
         $collect = new Collect();
         $collect

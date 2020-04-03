@@ -2,53 +2,49 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Recipient;
-use App\Entity\TypeOfDonation;
-use App\Entity\Referent;
+use App\Entity\Activity;
+use App\Entity\Collect;
+use App\Entity\Contact;
+use App\Entity\District;
 use App\Entity\Donation;
+use App\Entity\Home;
+use App\Entity\Recipient;
+use App\Entity\Referent;
 use App\Entity\Tag;
 use App\Entity\Thanks;
-use App\Entity\Activity;
-use App\Entity\Home;
-use App\Entity\District;
-use App\Entity\Contact;
-use App\Entity\Collect;
+use App\Entity\TypeOfDonation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-
     private $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
+
     public function load(ObjectManager $manager)
     {
-        $careDest = new Recipient;
+        $careDest = new Recipient();
         $careDest->setName('soignant');
 
         $manager->persist($careDest);
-        
-        $vulnerableDest = new Recipient;
+
+        $vulnerableDest = new Recipient();
         $vulnerableDest->setName('personnes demunies');
         $manager->persist($vulnerableDest);
 
-
-
         $district = new District();
         $district->setName('Toutes zones');
-
 
         $districtBeauregard = new District();
         $districtBeauregard->setName('Beauregard');
 
         $manager->persist($district);
         $manager->persist($districtBeauregard);
-
 
         $typeLunchCare = new TypeOfDonation();
         $typeLunchCare
@@ -65,13 +61,11 @@ class AppFixtures extends Fixture
         $manager->persist($typeLunchCare);
         $manager->persist($typeKeepChildCare);
 
-
         $typeLunchVulnerable = new TypeOfDonation();
         $typeLunchVulnerable
             ->setName('repas midi')
             ->setRecipient($vulnerableDest)
         ;
-
 
         $typeMedicineVulnerable = new TypeOfDonation();
         $typeMedicineVulnerable
@@ -83,8 +77,7 @@ class AppFixtures extends Fixture
         $manager->persist($typeMedicineVulnerable);
 
         $i = 0;
-        while($i < 20) {
-
+        while ($i < 20) {
             $referent = new Referent();
             $referent
                 ->setEmail('email-'.$i.'@gmail.com')
@@ -103,13 +96,12 @@ class AppFixtures extends Fixture
                 ->setDistrict($districtBeauregard)
             ;
             $manager->persist($referent);
-            $i++;
+            ++$i;
         }
-
 
         $tag = new Tag();
         $tag->setName('enfant');
-        
+
         $tagFormation = new Tag();
         $tagFormation->setName('formation gratuite');
 
@@ -117,7 +109,7 @@ class AppFixtures extends Fixture
         $manager->persist($tagFormation);
 
         $i = 0;
-        while($i < 20) {
+        while ($i < 20) {
             $activityChild = new Activity();
             $activityChild
                 ->setName('gully '.$i)
@@ -125,8 +117,7 @@ class AppFixtures extends Fixture
                 ->setDescription('Offre gratuite ')
                 ->addTag($tag)
             ;
-    
-    
+
             $activityFormation = new Activity();
             $activityFormation
                 ->setName('formation en ligne gratuite '.$i)
@@ -135,17 +126,16 @@ class AppFixtures extends Fixture
                 //->addTag($tag)
                 ->addTag($tagFormation)
             ;
-    
+
             $manager->persist($activityChild);
             $manager->persist($activityFormation);
-    
-            $i++;
-        }
-        
-        $i = 0;
-        while($i < 20) {
 
-            $isMerchant = $i % 2 == 0 ? true : false;
+            ++$i;
+        }
+
+        $i = 0;
+        while ($i < 20) {
+            $isMerchant = 0 == $i % 2 ? true : false;
             $thanks = new Thanks();
             $thanks
                 ->setIsEnabled(true)
@@ -156,16 +146,15 @@ class AppFixtures extends Fixture
             ;
 
             $manager->persist($thanks);
-            $i++;        
+            ++$i;
         }
-        
+
         $home = new Home();
         $home
             ->setName('abstract')
             ->setContent("La crise sanitaire oblige les habitants à rester chez eux, afin de limiter la propagation du virus. 
             Certaines personnes sont en première ligne (notamment le personnel hospitalier) et d'autres sont à protéger en priorité. 
             Plusieurs questions se posent alors:");
-
 
         $manager->persist($home);
 
@@ -177,16 +166,14 @@ class AppFixtures extends Fixture
             ->setDescription('corps du mail')
             ;
 
-
         $manager->persist($contact);
 
         $i = 0;
-        while($i < 2) {
-
+        while ($i < 2) {
             $now = new \DateTime('now');
             $end = clone $now;
             $end->modify('+10 hours');
-    
+
             $collect = new Collect();
             $collect
                 ->setStartAt($now)
@@ -198,10 +185,9 @@ class AppFixtures extends Fixture
             ;
 
             $manager->persist($collect);
-            $i++;
+            ++$i;
         }
 
-         
         $collect = new Collect();
         $collect
             ->setStartAt($now)
@@ -213,8 +199,6 @@ class AppFixtures extends Fixture
         ;
 
         $manager->persist($collect);
-
-
 
         $donation = new Donation();
         $donation
@@ -241,7 +225,6 @@ class AppFixtures extends Fixture
 
             ->setCollect($collect)
         ;
-
 
         $manager->persist($donation);
         $manager->persist($donationWithoutAssignement);

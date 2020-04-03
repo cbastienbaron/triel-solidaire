@@ -19,10 +19,9 @@ class ThanksRepository extends ServiceEntityRepository
         parent::__construct($registry, Thanks::class);
     }
 
-
     public function findForHome($isMerchant = false, $maxResults = 2)
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('t')
                 ->andWhere('t.isEnabled = 1')
@@ -38,7 +37,7 @@ class ThanksRepository extends ServiceEntityRepository
 
     public function findEnabled()
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('t')
                 ->andWhere('t.isEnabled = 1')
@@ -47,12 +46,12 @@ class ThanksRepository extends ServiceEntityRepository
                 //->setMaxResults(10)
                 ->getQuery()
                 //->getResult()
-            ;   
+            ;
     }
 
     public function findMerchantEnabled()
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('t')
                 ->andWhere('t.isEnabled = 1')
@@ -62,12 +61,12 @@ class ThanksRepository extends ServiceEntityRepository
                 //->setMaxResults(10)
                 ->getQuery()
                 //->getResult()
-            ;   
+            ;
     }
 
     public function findCitizenEnabled()
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('t')
                 ->andWhere('t.isEnabled = 1')
@@ -77,7 +76,7 @@ class ThanksRepository extends ServiceEntityRepository
                 //->setMaxResults(10)
                 ->getQuery()
                 //->getResult()
-            ;   
+            ;
     }
 
     // /**

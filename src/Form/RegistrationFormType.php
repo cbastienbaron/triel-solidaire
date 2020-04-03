@@ -4,19 +4,17 @@ namespace App\Form;
 
 use App\Entity\District;
 use App\Entity\Referent;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Doctrine\ORM\EntityRepository;
 
 class RegistrationFormType extends AbstractType
 {
@@ -27,7 +25,7 @@ class RegistrationFormType extends AbstractType
                 'firstname',
                 TextType::class,
                 [
-                    'label'    => 'Prénom',
+                    'label' => 'Prénom',
                     'required' => true,
                 ]
             )
@@ -36,7 +34,7 @@ class RegistrationFormType extends AbstractType
                 'lastname',
                 TextType::class,
                 [
-                    'label'    => 'Nom',
+                    'label' => 'Nom',
                     'required' => true,
                 ]
             )
@@ -44,7 +42,7 @@ class RegistrationFormType extends AbstractType
                 'email',
                 EmailType::class,
                 [
-                    'label'    => 'Votre email',
+                    'label' => 'Votre email',
                     'required' => true,
                 ]
             )
@@ -53,23 +51,23 @@ class RegistrationFormType extends AbstractType
                 'phone',
                 TelType::class,
                 [
-                    'label'    => 'Telephone',
+                    'label' => 'Telephone',
                     'required' => false,
                 ]
             )
 
             ->add(
-                'plainPassword', 
-                PasswordType::class, 
+                'plainPassword',
+                PasswordType::class,
                 [
-                    'label'       => 'Mot de passe',
-                    'mapped'      => false,
+                    'label' => 'Mot de passe',
+                    'mapped' => false,
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
                         ]),
                         new Length([
-                            'min'        => 6,
+                            'min' => 6,
                             'minMessage' => 'validators.user.password.constraint.length.error',
                             // max length allowed by Symfony for security reasons
                             'max' => 255,
@@ -81,18 +79,17 @@ class RegistrationFormType extends AbstractType
                 'district',
                 EntityType::class,
                 [
-                    'label'    => 'Votre Quartier',
-                    'class'    => District::class,
+                    'label' => 'Votre Quartier',
+                    'class' => District::class,
                     'choice_label' => 'name',
                 ]
             )
-
 
             ->add(
                 'address',
                 EmailType::class,
                 [
-                    'label'    => 'Adresse',
+                    'label' => 'Adresse',
                     'required' => false,
                 ]
             )
@@ -101,7 +98,7 @@ class RegistrationFormType extends AbstractType
                 'infos',
                 TextareaType::class,
                 [
-                    'label'    => 'Informations complémentaire',
+                    'label' => 'Informations complémentaire',
                     'required' => false,
                 ]
             )

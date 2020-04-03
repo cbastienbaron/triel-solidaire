@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -86,7 +84,6 @@ class Thanks
      */
     private $views = 0;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -155,7 +152,6 @@ class Thanks
         return $this;
     }
 
-
     public function __toString()
     {
         return $this->name;
@@ -212,18 +208,18 @@ class Thanks
     }
 
     /**
-     * Get the value of isMerchant
-     */ 
+     * Get the value of isMerchant.
+     */
     public function isMerchant()
     {
         return $this->isMerchant;
     }
 
     /**
-     * Set the value of isMerchant
+     * Set the value of isMerchant.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setIsMerchant($isMerchant)
     {
         $this->isMerchant = $isMerchant;
@@ -232,18 +228,18 @@ class Thanks
     }
 
     /**
-     * Get the value of description
-     */ 
+     * Get the value of description.
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * Set the value of description
+     * Set the value of description.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -252,23 +248,22 @@ class Thanks
     }
 
     /**
-     * Get the value of url
-     */ 
+     * Get the value of url.
+     */
     public function getUrl()
     {
         return $this->url;
     }
 
     /**
-     * Set the value of url
+     * Set the value of url.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setUrl($url)
     {
         $this->url = $url;
 
         return $this;
     }
-
 }

@@ -2,21 +2,18 @@
 
 namespace App\Form;
 
-
 use App\Entity\Collect;
 use App\Entity\Donation;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Vich\UploaderBundle\Form\Type\VichFileType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use App\Entity\TypeOfDonation;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DonationType extends AbstractType
 {
@@ -30,7 +27,7 @@ class DonationType extends AbstractType
                 'person',
                 TextType::class,
                 [
-                    'label'   => 'Qui suis-je ? (nom, prénom)',
+                    'label' => 'Qui suis-je ? (nom, prénom)',
                     'required' => true,
                 ]
             )
@@ -39,7 +36,7 @@ class DonationType extends AbstractType
                 'phone',
                 TelType::class,
                 [
-                    'label'   => 'Téléphone',
+                    'label' => 'Téléphone',
                     'required' => false,
                 ]
             )
@@ -48,10 +45,10 @@ class DonationType extends AbstractType
                 'collect',
                 EntityType::class,
                 [
-                    'label'    => 'Choix de la collecte',
-                    'class'    => Collect::class,
+                    'label' => 'Choix de la collecte',
+                    'class' => Collect::class,
                     'query_builder' => function (EntityRepository $er) {
-                        return 
+                        return
                             $er
                                 ->createQueryBuilder('c')
                                 ->where('c.endAt > :now')
@@ -59,10 +56,10 @@ class DonationType extends AbstractType
                             ;
                     },
                     'choice_label' => function ($collect) {
-                        return 'Début : '.$collect->getStartAt()->format('d/m/Y H:i') . ' - ' . 'Fin : '.$collect->getEndAt()->format('d/m/Y H:i');
+                        return 'Début : '.$collect->getStartAt()->format('d/m/Y H:i').' - '.'Fin : '.$collect->getEndAt()->format('d/m/Y H:i');
                     },
-                    'group_by' => function($choice, $key, $value) {
-                        return 'Quartier ' . $choice->getDistrict()->getName();
+                    'group_by' => function ($choice, $key, $value) {
+                        return 'Quartier '.$choice->getDistrict()->getName();
                     },
                     'placeholder' => 'Merci de choisir un secteur et une date de collecte',
                 ]
@@ -72,7 +69,7 @@ class DonationType extends AbstractType
                 'email',
                 TextType::class,
                 [
-                    'label'   => 'E-mail',
+                    'label' => 'E-mail',
                     'required' => false,
                 ]
             )
@@ -81,7 +78,7 @@ class DonationType extends AbstractType
                 'adress',
                 TextType::class,
                 [
-                    'label'   => 'Adresse',
+                    'label' => 'Adresse',
                     'required' => false,
                 ]
             )
@@ -90,7 +87,7 @@ class DonationType extends AbstractType
                 'additionalInfo',
                 TextareaType::class,
                 [
-                    'label'   => 'Information complémentaire',
+                    'label' => 'Information complémentaire',
                     'required' => false,
                 ]
             )
@@ -106,15 +103,13 @@ class DonationType extends AbstractType
             // )
 
             ->add('typeOfDonations', EntityType::class, [
-                'label'   => 'Type de dons',
+                'label' => 'Type de dons',
                 'class' => TypeOfDonation::class,
                 'choices' => $donation->getTypeOfDonations(),
                 'choice_label' => 'name',
-                'expanded'  => true,
-                'multiple'  => true,
+                'expanded' => true,
+                'multiple' => true,
             ]);
-
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

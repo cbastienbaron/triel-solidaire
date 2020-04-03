@@ -3,20 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Referent;
-use App\Form\RegistrationFormType;
 use App\Form\ProfilFormType;
+use App\Form\RegistrationFormType;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Bridge\Twig\Mime\NotificationEmail;
-use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
@@ -24,14 +22,13 @@ class SecurityController extends AbstractController
      * @Route("/login", name="app_login")
      */
     public function login(
-        Request $request, 
-        AuthenticationUtils $authenticationUtils, 
-        UserPasswordEncoderInterface $passwordEncoder, 
-        MailerInterface $mailer, 
-        string $notificationFrom, 
+        Request $request,
+        AuthenticationUtils $authenticationUtils,
+        UserPasswordEncoderInterface $passwordEncoder,
+        MailerInterface $mailer,
+        string $notificationFrom,
         string $notificationToAdmin
-        ): Response
-    {
+        ): Response {
         $user = new Referent();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -70,7 +67,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'registrationForm' => $form->createView(),]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'registrationForm' => $form->createView()]);
     }
 
     /**
@@ -86,7 +83,7 @@ class SecurityController extends AbstractController
      */
     public function registerSuccess()
     {
-        return 
+        return
             $this->render(
                 'security/register_succcess.html.twig'
             );
@@ -97,7 +94,6 @@ class SecurityController extends AbstractController
      */
     public function profil(Request $request)
     {
-
         $user = $this->getUser();
         $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
@@ -105,7 +101,7 @@ class SecurityController extends AbstractController
         // register
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -115,11 +111,11 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app.profil.success');
         }
 
-        return 
+        return
             $this->render(
                 'security/profil.html.twig',
                 [
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
                 ]
             );
     }
@@ -129,36 +125,34 @@ class SecurityController extends AbstractController
      */
     public function profilSuccess()
     {
-        return 
+        return
             $this->render(
                 'security/profil_succcess.html.twig'
             );
     }
 
-     /**
+    /**
      * @Route("/mot-de-passe-oublie", name="app.forgotten.password")
      */
-    public function forgottenPassword(        
+    public function forgottenPassword(
     Request $request,
     \Swift_Mailer $mailer,
     TokenGeneratorInterface $tokenGenerator,
     string $notificationFrom
-    ): Response
-    {
+    ): Response {
         if ($request->isMethod('POST')) {
-
             $email = $request->request->get('email');
 
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(Referent::class)->findOneBy(['email' => $email]);
             /* @var $user User */
-            if ($user === null) {
+            if (null === $user) {
                 return $this->redirectToRoute('app.index');
             }
 
             $token = $tokenGenerator->generateToken();
 
-            try{
+            try {
                 $user->setResetToken($token);
                 $entityManager->persist($user);
                 $entityManager->flush();
@@ -166,14 +160,14 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app.index');
             }
 
-            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $url = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
             $message = (new \Swift_Message('[trielsolidarite.org] Mot de passe oublié'))
                 ->setFrom($notificationFrom)
                 // ->setTo($user->getEmail())
                 ->setTo('baronsebastien@gmail.com')
                 ->setBody(
-                    "Voici le lien pour mettre à jour votre nouveau mot de passe : " . $url,
+                    'Voici le lien pour mettre à jour votre nouveau mot de passe : '.$url,
                     'text/html'
                 );
 
@@ -187,20 +181,20 @@ class SecurityController extends AbstractController
         return $this->render('security/forgotten_password.html.twig');
     }
 
-        /**
+    /**
      * @Route("/reset_password/{token}", name="app_reset_password")
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {
-
         if ($request->isMethod('POST')) {
             $entityManager = $this->getDoctrine()->getManager();
 
             $user = $entityManager->getRepository(Referent::class)->findOneBy(['resetToken' => $token]);
             /* @var $user User */
 
-            if ($user === null) {
+            if (null === $user) {
                 $this->addFlash('danger', 'Token Inconnu');
+
                 return $this->redirectToRoute('app.index');
             }
 

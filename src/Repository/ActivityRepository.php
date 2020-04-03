@@ -22,7 +22,7 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function findByTag(Tag $tag)
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('a')
                 ->join('a.tags', 'tags')
@@ -38,7 +38,7 @@ class ActivityRepository extends ServiceEntityRepository
 
     public function findAll()
     {
-        return 
+        return
             $this
                 ->createQueryBuilder('a')
                 ->orderBy('a.isMerchant', 'DESC')

@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Activity
 {
-
     const TYPE_OF_MISC_FOOD_SHOP = 1;
     const TYPE_OF_HOME_DELIVERY = 2;
     const TYPE_OF_PHARMACY = 3;
@@ -366,12 +365,11 @@ class Activity
     {
         return self::TYPE_OF_PHARMACY === $this->type;
     }
-    
+
     public function isBookstore(): bool
     {
         return self::TYPE_OF_BOOKSTORE === $this->type;
     }
-
 
     public function getLongTypeOf(): ?string
     {
@@ -386,9 +384,9 @@ class Activity
     {
         return [
             self::TYPE_OF_MISC_FOOD_SHOP => 'COMMERCES ALIMENTAIRES DIVERS',
-            self::TYPE_OF_HOME_DELIVERY  => 'LIVRAISON A DOMICILE',
-            self::TYPE_OF_PHARMACY       => 'PHARMACIES',        
-            self::TYPE_OF_BOOKSTORE      => 'LIBRAIRIES'        
+            self::TYPE_OF_HOME_DELIVERY => 'LIVRAISON A DOMICILE',
+            self::TYPE_OF_PHARMACY => 'PHARMACIES',
+            self::TYPE_OF_BOOKSTORE => 'LIBRAIRIES',
         ];
     }
 
@@ -427,5 +425,4 @@ class Activity
 
         return $this;
     }
-
 }

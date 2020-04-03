@@ -7,16 +7,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DonationRepository")
  */
 class Donation
 {
-
     use
         Traits\CreatedEntity;
-        
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -75,7 +73,6 @@ class Donation
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $collectedAt;
-
 
     public function __construct()
     {
@@ -154,10 +151,11 @@ class Donation
     {
         return $this->typeOfDonations;
     }
-    
-    public function setTypeOfDonations(Collection $typeOfDonations): self 
+
+    public function setTypeOfDonations(Collection $typeOfDonations): self
     {
         $this->typeOfDonations = $typeOfDonations;
+
         return $this;
     }
 
@@ -192,25 +190,24 @@ class Donation
     }
 
     /**
-     * Get the value of isCollected
-     */ 
+     * Get the value of isCollected.
+     */
     public function isCollected(): bool
     {
         return $this->isCollected;
     }
 
     /**
-     * Set the value of isCollected
+     * Set the value of isCollected.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setIsCollected($isCollected)
     {
         $this->isCollected = $isCollected;
 
         return $this;
     }
-
 
     public function __toString()
     {
