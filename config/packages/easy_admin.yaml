@@ -122,6 +122,9 @@ easy_admin:
                         - 'phone'
                         - 'isShipping'
                         - 'isOrderable'
+                        - 'isPaymentCash'
+                        - 'isPaymentCheck'
+                        - 'isPaymentBankcard'
                         -   property: 'type'
                             type: 'choice'
                             type_options:
@@ -320,9 +323,9 @@ easy_admin:
                 - { label: 'Remerciements' }
                 - { entity: 'Thanks', label: 'Gestion Remerciements' }
                 
-                - { label: 'Activites' }
+                - { label: 'Infos pratiques' }
                 - { entity: 'Tags', label: 'Gestion des tags' }
-                - { entity: 'Activites', label: 'Gestion des activités' }
+                - { entity: 'Activites', label: 'Gestion des Infos pratiques' }
                 
 
                 - { label: 'Gestion sytèmes donations' }

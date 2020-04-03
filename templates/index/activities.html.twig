@@ -33,7 +33,8 @@
               <br>
             {% endif %}  
             
-            {{ activity.description }} 
+            {{ activity.description|raw }} 
+            
             <br>
 
             {% if activity.isMerchant %}
@@ -44,11 +45,21 @@
 
               <br>
               <a href="tel:{{ activity.phone }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ activity.phone }}</a>
+              <hr>
+
+              <i class="fa fa-truck" aria-hidden="true"></i> Livraison : {{ activity.isShipping ? '<i class="fa fa-check-circle" aria-hidden="true"></i> oui' : '<i class="fa fa-ban" aria-hidden="true"></i> non' }}
+              <br>
+              <i class="fa fa-credit-card" aria-hidden="true"></i> Commande : {{ activity.isOrderable ? '<i class="fa fa-check-circle" aria-hidden="true"></i> oui' : '<i class="fa fa-ban" aria-hidden="true"></i> non' }}
+              <hr>
+
+              <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Paiement par cheque : {{ activity.isPaymentCheck ? '<i class="fa fa-check-circle" aria-hidden="true"></i>  oui' : '<i class="fa fa-ban" aria-hidden="true"></i> non' }}
               <br>
 
-              <i class="fa fa-truck" aria-hidden="true"></i> Livraison : {{ activity.isShipping ? 'oui' : 'non' }}
+              <i class="fa fa-money" aria-hidden="true"></i> Paiement en espèce : {{ activity.isPaymentCash ? '<i class="fa fa-check-circle" aria-hidden="true"></i>  oui' : '<i class="fa fa-ban" aria-hidden="true"></i> non' }}
               <br>
-              <i class="fa fa-credit-card" aria-hidden="true"></i> Commande : {{ activity.isOrderable ? 'oui' : 'on' }}
+
+              <i class="fa fa-credit-card" aria-hidden="true"></i> Paiement par carte bancaire : {{ activity.isPaymentBankcard ? '<i class="fa fa-check-circle" aria-hidden="true"></i> oui' : '<i class="fa fa-ban" aria-hidden="true"></i> non' }}
+              <br>
 
               <hr>
               <table class="table table-striped table-hover">

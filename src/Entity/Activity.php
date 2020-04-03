@@ -109,6 +109,21 @@ class Activity
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaymentCash;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaymentCheck;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaymentBankcard;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -375,6 +390,42 @@ class Activity
             self::TYPE_OF_PHARMACY       => 'PHARMACIES',        
             self::TYPE_OF_BOOKSTORE      => 'LIBRAIRIES'        
         ];
+    }
+
+    public function isPaymentCash(): ?bool
+    {
+        return $this->isPaymentCash;
+    }
+
+    public function setIsPaymentCash(?bool $isPaymentCash): self
+    {
+        $this->isPaymentCash = $isPaymentCash;
+
+        return $this;
+    }
+
+    public function isPaymentCheck(): ?bool
+    {
+        return $this->isPaymentCheck;
+    }
+
+    public function setIsPaymentCheck(?bool $isPaymentCheck): self
+    {
+        $this->isPaymentCheck = $isPaymentCheck;
+
+        return $this;
+    }
+
+    public function isPaymentBankcard(): ?bool
+    {
+        return $this->isPaymentBankcard;
+    }
+
+    public function setIsPaymentBankcard(?bool $isPaymentBankcard): self
+    {
+        $this->isPaymentBankcard = $isPaymentBankcard;
+
+        return $this;
     }
 
 }

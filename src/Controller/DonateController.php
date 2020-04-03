@@ -54,7 +54,7 @@ class DonateController extends AbstractController
                 ->cc($notificationToAdmin)
                 ->from($notificationFrom)
                 ->content('Nouvelle donation à collecter')
-                ->importance('triel-solidarite.org')
+                ->importance('trielsolidarite.org')
                 ->action('Plus d\'info ?', $this->generateUrl('app.collect.index'))
             ;
             $mailer->send($notification);

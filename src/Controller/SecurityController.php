@@ -57,8 +57,8 @@ class SecurityController extends AbstractController
                 ->to($notificationToAdmin)
                 ->from($notificationFrom)
                 ->content('Nouvelle inscription référent à valider')
-                ->importance('triel-solidarite.org')
-                ->action('Plus d\'info ?', 'https://triel-solidarite.org/admin')
+                ->importance('trielsolidarite.org')
+                ->action('Plus d\'info ?', 'https://trielsolidarite.org/admin')
             ;
             $mailer->send($notification);
 

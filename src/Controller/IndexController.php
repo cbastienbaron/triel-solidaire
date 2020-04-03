@@ -196,8 +196,8 @@ class IndexController extends AbstractController
                 ->replyTo($contact->getEmail())
                 ->from($notificationFrom)
                 ->content($contact->getDescription())
-                ->importance('triel-solidarite.org')
-                ->action('Plus d\'info ?', 'https://triel-solidarite.org/')
+                ->importance('trielsolidarite.org')
+                ->action('Plus d\'info ?', 'https://trielsolidarite.org/')
             ;
 
             if($contact->getReferent()) {
