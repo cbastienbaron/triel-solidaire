@@ -5,12 +5,18 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
+ * @Vich\Uploadable
  */
 class Activity
 {
+
+    use
+        Traits\UpdatedEntity;
+
     const TYPE_OF_MISC_FOOD_SHOP = 1;
     const TYPE_OF_HOME_DELIVERY = 2;
     const TYPE_OF_PHARMACY = 3;
@@ -122,6 +128,32 @@ class Activity
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPaymentBankcard;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @Vich\UploadableField(mapping="merchants", fileNameProperty="file")
+     *
+     * @var File
+     */
+    private $mainFile;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $card;
+
+    /**
+     * @Vich\UploadableField(mapping="merchants", fileNameProperty="card")
+     *
+     * @var File
+     */
+    private $cardFile;
+
 
     public function __construct()
     {
@@ -425,4 +457,60 @@ class Activity
 
         return $this;
     }
+
+
+    public function setMainFile(File $file = null): self
+    {
+        $this->mainFile = $file;
+        if ($file) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getMainFile()
+    {
+        return $this->mainFile;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function setCardFile(File $file = null): self
+    {
+        $this->cardFile = $file;
+        if ($file) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getCardFile()
+    {
+        return $this->cardFile;
+    }
+
+    public function getCard(): ?string
+    {
+        return $this->card;
+    }
+
+    public function setCard(?string $file): self
+    {
+        $this->card = $file;
+
+        return $this;
+    }
+
 }

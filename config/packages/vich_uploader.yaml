@@ -19,4 +19,13 @@ vich_uploader:
             directory_namer:
                 service: vich_uploader.namer_directory_current_date_time
                 options: {date_time_property: createdAt, date_time_format: 'Y/d/m/H'}
-        
+        merchants:
+            uri_prefix:         '/images/merchants'
+            upload_destination: '%kernel.project_dir%/public/images/merchants'
+            delete_on_remove: true
+            delete_on_update: true
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            # directory_namer:
+            #     service: vich_uploader.namer_directory_current_date_time
+            #     options: {date_time_property: createdAt, date_time_format: 'Y/d/m/H'}
+                

@@ -120,6 +120,8 @@ easy_admin:
                         - 'isMerchant'
                         - 'address'
                         - 'phone'
+                        - { property: 'mainFile', label : 'image de la boutique', type: 'vich_image'}
+                        - { property: 'cardFile', label : 'carte format pdf', type: 'vich_file'}
                         - 'isShipping'
                         - 'isOrderable'
                         - 'isPaymentCash'

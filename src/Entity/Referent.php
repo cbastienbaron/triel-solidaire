@@ -165,18 +165,6 @@ class Referent implements UserInterface
         return $this;
     }
 
-    public function getQuartier(): ?string
-    {
-        return $this->quartier;
-    }
-
-    public function setQuartier(?string $quartier): self
-    {
-        $this->quartier = $quartier;
-
-        return $this;
-    }
-
     public function getPhone(): ?string
     {
         return $this->phone;
