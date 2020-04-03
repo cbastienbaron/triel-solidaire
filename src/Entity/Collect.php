@@ -55,7 +55,7 @@ class Collect
     private $internalDescription;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="collect")
+     * @ORM\OneToMany(targetEntity="App\Entity\Donation", mappedBy="collect", cascade={"remove"})
      */
     private $donations;
 
