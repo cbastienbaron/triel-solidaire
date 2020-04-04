@@ -19,6 +19,20 @@ class ReferentRepository extends ServiceEntityRepository
         parent::__construct($registry, Referent::class);
     }
 
+    public function findValidatedOrderedByDistrict()
+    {
+        return 
+            $this
+                ->createQueryBuilder('r')
+                ->andWhere('r.isValidated = 1')
+                ->join('r.district', 'd')
+                ->orderBy('d.name', 'ASC')
+                //->setMaxResults(10)
+                ->getQuery()
+                //->getResult()
+            ;
+    }
+
     // /**
     //  * @return Referent[] Returns an array of Referent objects
     //  */

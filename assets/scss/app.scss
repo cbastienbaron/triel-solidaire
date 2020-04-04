@@ -75,8 +75,25 @@ a.badge-success.active {
     background-image: linear-gradient(90deg, $blue, $blue-light);
     color: #FFF;
     padding: 10px;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
+  @include media-breakpoint-up(sm) {
+    .solidarity-hightlight {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @include media-breakpoint-up(md) {
+    .solidarity-hightlight {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @include media-breakpoint-up(lg) {
+    .solidarity-hightlight {
+      font-size: 1.2rem;
+    }
+  }
 
 .solidarity-thanks-list, 
 .solidarity-activities-list, 
@@ -112,6 +129,16 @@ a.badge-success.active {
     padding: 0;
     li {
         margin-bottom: 20px;
+        border: 2px solid $blue;
+        border-radius: 4px;
+        padding: 10px;
+        
+        p.donate-dispatch-list-type {
+            margin: 0 auto;
+            text-align: left;
+            // background-color: red;        
+            display: inline-block;
+        }   
 
         a.btn {
             width: 100%;

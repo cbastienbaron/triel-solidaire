@@ -6,13 +6,23 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h2 class="display-4">Je fais un don pour</h2>
+            <h2 class="display-4">Je fais un don en nature pour</h2>
 
             <ul class="donate-dispatch-list">
 
                 {% for recipient in recipients %}
                     <li>
-                        <a href="{{ path('app.donate.dispatch', {'slug' : recipient.slug }) }}" class="btn btn-primary" role="button"><i class="fa fa-heart" aria-hidden="true"></i> {{ recipient.name }}</a>
+
+                        <a href="{{ path('app.donate.dispatch', {'slug' : recipient.slug }) }}" class="btn btn-primary" role="button">
+                            <i class="fa fa-heart" aria-hidden="true"></i> {{ recipient.name }}
+                        </a>
+
+                        <p class="donate-dispatch-list-type">
+                            {% for typeOfDonation in recipient.typeOfDonations %}
+                                <br><i class="fa fa-check" aria-hidden="true"></i> {{ typeOfDonation.name }}
+                            {% endfor %}
+                        </p>
+                        
                     </li>
                 {% endfor %}
             </ul>

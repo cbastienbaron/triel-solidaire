@@ -119,8 +119,9 @@ class IndexController extends AbstractController
      */
     public function referents(Request $request)
     {
+
         $referents = $this->paginator->paginate(
-            $this->referentRepository->createQueryBuilder('r')->where('r.isValidated = 1')->getQuery(),
+            $this->referentRepository->findValidatedOrderedByDistrict(),
             $request->query->getInt('page', 1),
             10
         );

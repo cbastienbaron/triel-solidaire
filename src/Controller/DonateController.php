@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Donation;
 use App\Entity\Recipient;
+use App\Entity\TypeOfDonation;
 use App\Form\DonationType;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,12 +48,32 @@ class DonateController extends AbstractController
                 $to = $referent->getEmail();
             }
 
+            $typeDonations = implode(', ',array_map(
+                function(TypeOfDonation $typeOfDonation) {
+                    return $typeOfDonation->getName();
+                }, 
+                $donation->getTypeOfDonations()->toArray()
+            ));
+            $content = <<<EOC
+                Nouvelle donation à collecter \n
+                Personne : {$donation->getPerson()}
+                Téléphone : {$donation->getPhone()}
+                Email : {$donation->getEmail()}
+                Adresse : {$donation->getAdress()}
+                Infos : {$donation->getAdditionalInfo()}
+                Collecte du : {$donation->getCollect()->getStartAt()->format('d-m-Y h:i') } - quartier {$donation->getCollect()->getDistrict()->getName() }
+                Beneficiaire : {$donation->getRecipient()->getName() }
+                Dons : $typeDonations 
+                
+            EOC;
+
             $notification = (new NotificationEmail())
                 ->subject('Nouvelle donation à collecter')
-                ->to($to)
-                ->cc($notificationToAdmin)
+                //->to('baronsebastien@gmail.com')
+                 ->to($to)
+                 ->cc($notificationToAdmin)
                 ->from($notificationFrom)
-                ->content('Nouvelle donation à collecter')
+                ->content($content)
                 ->importance('trielsolidarite.org')
                 ->action('Plus d\'info ?', $this->generateUrl('app.collect.index'))
             ;
