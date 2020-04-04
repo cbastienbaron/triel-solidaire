@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -92,20 +93,17 @@ class DonationType extends AbstractType
                 ]
             )
 
-            // ->add(
-            //     'donateAt',
-            //     DateTimeType::class,
-            //     [
-            //         'label'   => 'Date souhaitée pour le ramassage de votre don',
-            //         'required' => false,
-            //         'widget' => 'single_text'
-            //     ]
-            // )
-
             ->add('typeOfDonations', EntityType::class, [
                 'label' => 'Type de dons',
                 'class' => TypeOfDonation::class,
-                'choices' => $donation->getTypeOfDonations(),
+                'query_builder' => function (EntityRepository $er) use($donation) {
+                    return
+                        $er
+                            ->createQueryBuilder('t')
+                            ->where('t.recipient = :recipient')
+                            ->setParameter('recipient', $donation->getRecipient())
+                        ;
+                },
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,

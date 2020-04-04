@@ -30,7 +30,6 @@ class DonateController extends AbstractController
         $donation = new Donation();
         $donation
             ->setRecipient($recipient)
-            ->setTypeOfDonations($recipient->getTypeOfDonations())
         ;
 
         $form = $this->createForm(DonationType::class, $donation);
