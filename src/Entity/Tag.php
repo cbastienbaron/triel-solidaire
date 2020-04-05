@@ -35,6 +35,11 @@ class Tag
      */
     private $activities;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TagGroup", inversedBy="tags")
+     */
+    private $tagGroup;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -93,5 +98,17 @@ class Tag
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getTagGroup(): ?TagGroup
+    {
+        return $this->tagGroup;
+    }
+
+    public function setTagGroup(?TagGroup $tagGroup): self
+    {
+        $this->tagGroup = $tagGroup;
+
+        return $this;
     }
 }

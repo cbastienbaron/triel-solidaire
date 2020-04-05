@@ -10,9 +10,19 @@
     <div class="container">
       <h2 class="display-4">Liste des infos pratiques</h2>
       <ul class="solidarity-activities-list-tags">
+        {% set group = null %}
         {% for tag in tags %}
           <li>
+
+            {% if tag.tagGroup != group %}
+                {% set group = tag.tagGroup %}
+                <hr>
+                {{- tag.tagGroup -}}
+                
+            {% endif %}
+            
             <a href="{{ path('app.activities.by.tag', {'slug': tag.slug}) }}" class="badge badge-success {{ tag == currentTag ? "active":""}}" title="Retrouvez toutes les infos {{ tag.name}}">{{ tag.name}}</a>
+
           </li>
         {% endfor %}
       </ul>
@@ -22,10 +32,10 @@
   <ul class="list-group list-group-flush solidarity-activities-list">
     {% for activity in activities %}
         <li class="list-group-item {{activity.isMerchant ? 'activity-merchant activity-merchant-'~activity.type : ''}}">
-            {% if activity.longTypeOf %}
+            {# {% if activity.longTypeOf %}
               <span class="badge badge-secondary">{{ activity.longTypeOf }}</span>
               <br>  
-            {% endif %}
+            {% endif %} #}
             {{ activity.name }} 
             <br>
             {% if activity.url %}

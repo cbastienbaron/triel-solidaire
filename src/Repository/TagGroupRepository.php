@@ -2,39 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Tag;
+use App\Entity\TagGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tag[]    findAll()
- * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TagGroup|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TagGroup|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TagGroup[]    findAll()
+ * @method TagGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagRepository extends ServiceEntityRepository
+class TagGroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Tag::class);
-    }
-
-    public function findAll()
-    {
-        return
-            $this
-            ->createQueryBuilder('t')
-            ->leftJoin('t.tagGroup', 'tg')
-            // ->groupBy('tg')
-            ->orderBy('tg.id', 'ASC')
-            ->addOrderBy('t.name', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
+        parent::__construct($registry, TagGroup::class);
     }
 
     // /**
-    //  * @return Tag[] Returns an array of Tag objects
+    //  * @return TagGroup[] Returns an array of TagGroup objects
     //  */
     /*
     public function findByExampleField($value)
@@ -51,7 +37,7 @@ class TagRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Tag
+    public function findOneBySomeField($value): ?TagGroup
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

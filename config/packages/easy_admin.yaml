@@ -74,13 +74,32 @@ easy_admin:
                     fields:
                         - 'id'
                         - 'name'
+                        - 'tagGroup'
                 list:
                     fields:
                         - 'id'
                         - 'name'
+                        - 'tagGroup'
                 form:
                     fields:
                         - 'name'
+                        - 'tagGroup'
+            TagGroup:
+                class: App\Entity\TagGroup
+                show:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'tags'
+                list:
+                    fields:
+                        - 'id'
+                        - 'name'
+                        - 'tags'
+                form:
+                    fields:
+                        - 'name'                        
+                        # - 'tags'                        
             Activites:
                 class: App\Entity\Activity
                 show:
@@ -322,6 +341,7 @@ easy_admin:
                 
                 - { label: 'Infos pratiques' }
                 - { entity: 'Tags', label: 'Gestion des tags' }
+                - { entity: 'TagGroup', label: 'Gestion des groupes de tags' }
                 - { entity: 'Activites', label: 'Gestion des Infos pratiques' }
                 
 
