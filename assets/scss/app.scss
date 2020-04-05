@@ -369,9 +369,18 @@ caption {
 }    
 
 .solidarity-merchant-visual {
-
+    // text-align: center;
     img {
-        width: 100%;
+        max-width: 100%;
         border: 1px solid #fff;
+        margin: 0 auto;
+        display: block;
     }
+}
+
+.solidarity-merchant-card {
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    display: inline-block;
 }

@@ -28,4 +28,7 @@ liip_imagine:
         merchants:
             quality: 75
             filters:
-                fixed: { width: 760, height: 200 }
+                downscale:
+                    max: [760, 200]
+                    # modke: inset
+                    # allow_upscale: false

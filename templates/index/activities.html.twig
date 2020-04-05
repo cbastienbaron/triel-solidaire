@@ -51,14 +51,14 @@
               
               {% if activity.file %}
                   <a data-fancybox="gallery" href="{{ vich_uploader_asset(activity, 'mainFile') }}" class="solidarity-merchant-visual">
-                    <img src="{{ vich_uploader_asset(activity, 'mainFile') | imagine_filter('merchants') }}" title="{{ activity.name}}">
+                    <img src="{{ vich_uploader_asset(activity, 'mainFile')}}" title="{{ activity.name}}">
                   </a>
 
                   <hr>
               {% endif %}   
 
               {% if activity.card %}
-                  <a href="{{ vich_uploader_asset(activity, 'cardFile') }}" target="_blank">
+                  <a href="{{ vich_uploader_asset(activity, 'cardFile') }}" target="_blank" class="solidarity-merchant-card">
                       <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Voir la carte  
                   </a>
                   <br>
