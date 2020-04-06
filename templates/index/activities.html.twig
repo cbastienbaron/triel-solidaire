@@ -54,9 +54,10 @@
               {{ activity.address }}
 
  
-
-              <br>
-              <a href="tel:{{ activity.phone }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ activity.phone }}</a>
+              {% if activity.phone %}
+                <br>
+                <a href="tel:{{ activity.phone }}"><i class="fa fa-phone" aria-hidden="true"></i> {{ activity.phone }}</a>
+              {% endif %}
               <hr>
               
               {% if activity.file %}
