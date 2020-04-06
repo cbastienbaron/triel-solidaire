@@ -319,12 +319,12 @@ easy_admin:
 
         design:
             assets:
-                favicon: '/assets/backend/favicon.png'
+                # favicon: '/assets/backend/favicon.png'
                 css:
-                    - '/assets/css/admin.css'
-                    - 'bundles/easyadmin/bootstrap-all.css'
+                    # - '/assets/css/admin.css'
+                    # - 'bundles/easyadmin/bootstrap-all.css'
                 js:
-                    - 'bundles/easyadmin/bootstrap-all.js'
+                    # - 'bundles/easyadmin/bootstrap-all.js'
             menu:
                 - { label: 'Gestion contact' }
                 - { entity: 'Contact', label: 'Formulaire de contact' }
