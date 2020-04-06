@@ -6,7 +6,7 @@
    
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h2 class="display-4">Merci ! </h2>
+      <h2 class="display-4"><img src="/Merci_Titre.jpg" title="merci !" style="max-width:100%"></h2>
       <p class="lead">
         à nos <a href="{{ path('app.thanks.merchant')}}">commerçants</a> et aux <a href="{{ path('app.thanks.citizens')}}">habitants</a> pour leur solidarité
       </p>
@@ -22,7 +22,7 @@
                   <img src="{{ vich_uploader_asset(thank, 'mainFile') | imagine_filter('thanks') }}" title="{{ thank.title}}">
               </a>
             {% else %}            
-                <img src="/logo.jpeg" title="{{ thank.title }}">
+                <img src="/Merci.jpg" title="{{ thank.title }}" style="max-width:130px">
             {% endif %}
             <div>
                 <p><strong>{{ thank.title }}</strong></p> 
