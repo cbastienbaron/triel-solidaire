@@ -201,7 +201,7 @@ class IndexController extends AbstractController
                 ->to($notificationToAdmin)
                 ->replyTo($contact->getEmail())
                 ->from($notificationFrom)
-                ->content($contact->getDescription())
+                ->content($content)
                 ->importance('trielsolidarite.org')
                 ->action('Plus d\'info ?', 'https://trielsolidarite.org/')
             ;
