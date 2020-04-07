@@ -187,6 +187,15 @@ class IndexController extends AbstractController
             $manager->persist($contact);
             $manager->flush();
 
+            $content = <<<EOC
+            Nouvelle demande de contact \n
+            Personne : {$contact->getName()}
+            Email : {$contact->getEmail()}
+            Sujet : {$contact->getSubject()}
+            Description : {$contact->getDescription()}
+            
+            EOC;
+
             $notification = (new NotificationEmail())
                 ->subject(sprintf('Mail de contact : %s', $contact->getSubject()))
                 ->to($notificationToAdmin)
@@ -198,7 +207,7 @@ class IndexController extends AbstractController
             ;
 
             if ($contact->getReferent()) {
-                //$notification->cc($contact->getReferent()->getEmail());
+                $notification->cc($contact->getReferent()->getEmail());
             }
 
             $mailer->send($notification);
