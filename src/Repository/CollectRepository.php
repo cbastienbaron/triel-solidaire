@@ -24,7 +24,7 @@ class CollectRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.endAt > :now')
             ->setParameter('now', new \DateTime('now'))
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('c.startAt', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
