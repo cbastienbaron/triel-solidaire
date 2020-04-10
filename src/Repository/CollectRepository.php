@@ -25,7 +25,7 @@ class CollectRepository extends ServiceEntityRepository
             ->andWhere('c.endAt > :now')
             ->setParameter('now', new \DateTime('now'))
             ->orderBy('c.startAt', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults(14)
             ->getQuery()
             ->getResult()
         ;
