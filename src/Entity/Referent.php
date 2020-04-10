@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReferentRepository")
  * @Vich\Uploadable
+ * @UniqueEntity(fields={"email"}, message="Votre adresse mail est déjà utilisée.")
  */
 class Referent implements UserInterface
 {
