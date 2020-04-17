@@ -7,7 +7,6 @@ use App\Entity\Collect;
 use App\Entity\Contact;
 use App\Entity\District;
 use App\Entity\Donation;
-use App\Entity\Home;
 use App\Entity\Recipient;
 use App\Entity\Referent;
 use App\Entity\Tag;
@@ -149,14 +148,6 @@ class AppFixtures extends Fixture
             ++$i;
         }
 
-        $home = new Home();
-        $home
-            ->setName('abstract')
-            ->setContent("La crise sanitaire oblige les habitants à rester chez eux, afin de limiter la propagation du virus. 
-            Certaines personnes sont en première ligne (notamment le personnel hospitalier) et d'autres sont à protéger en priorité. 
-            Plusieurs questions se posent alors:");
-
-        $manager->persist($home);
 
         $contact = new Contact();
         $contact
