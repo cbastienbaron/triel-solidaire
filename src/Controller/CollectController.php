@@ -104,11 +104,17 @@ class CollectController extends AbstractController
     {
         $isSuccess = 'app.collect.create.success' == $request->attributes->get('_route');
         $user = $this->getUser();
+        $startAt = new \DateTime();
+        $startAt->setTime(10, 0);
+        $endAt = new \DateTime();
+        $endAt->setTime(18, 0);
 
         $collect = new Collect();
         $collect
             ->setAssignedTo($user)
             ->setDistrict($user->getDistrict())
+            ->setStartAt($startAt)
+            ->setEndAt($endAt)
         ;
 
         $form = $this->createForm(CollectType::class, $collect);
